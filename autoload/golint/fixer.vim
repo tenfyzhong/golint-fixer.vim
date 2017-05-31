@@ -26,3 +26,11 @@ function! golint#fixer#exported(pattern, item) "{{{
     return 0
 endfunction "}}}
 
+" handle warning: package comment should not have leading space
+function! golint#fixer#not_leading_space(pattern, item) "{{{
+    let lnum = a:item['lnum']
+    let content = getline(lnum)
+    s/\m\s*Package/Package/
+    return 1
+endfunction "}}}
+

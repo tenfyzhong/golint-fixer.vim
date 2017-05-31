@@ -1,0 +1,33 @@
+Given go (cpp style):
+  //  Package test comment
+  package test
+
+Execute (lint):
+  call setqflist([{'lnum': 1, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 'text': 'package comment should not have leading space'}], 'r')
+  1
+  GoLintFix
+  stopinsert
+
+Expect go (after fix):
+  //Package test comment
+  package test
+
+Given go (c style):
+  /* Package test comment
+  * haha
+  */
+  package test
+
+Execute (lint):
+  call setqflist([{'lnum': 1, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 'text': 'package comment should not have leading space'}], 'r')
+  1
+  GoLintFix
+  stopinsert
+
+Given go (after fix):
+  /*Package test comment
+  * haha
+  */
+  package test

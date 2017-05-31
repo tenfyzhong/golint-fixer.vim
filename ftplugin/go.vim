@@ -9,6 +9,7 @@
 
 
 let s:match_function = [{'pattern': '\m^exported \w\+ \%(\w\+\.\)\?\(\w\+\) should have comment or be unexported$', 'func': 'golint#fixer#exported'},
+            \ {'pattern': '\m^package comment should not have leading space$', 'func': 'golint#fixer#not_leading_space'},
             \]
 
 function! s:Fix() "{{{
