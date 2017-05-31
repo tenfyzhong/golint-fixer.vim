@@ -1,0 +1,20 @@
+Given go (should comment):
+  package test
+  func Func() string{
+    return 'hello'
+  }
+
+Execute (GoLint and GoLintFix):
+  call setqflist([{'lnum': 2, 'bufnr': 1, 'col': 6, 'valid': 1, 'vcol': 0, 'nr': -1, 
+    \'type': 'W', 'pattern': '', 'text': 'exported type Func should have comment or be unexported'}], 'r')
+  2
+  GoLintFix
+  stopinsert
+
+  
+Expect go (after comment): 
+  package test
+  // Func
+  func Func() string{
+    return 'hello'
+  }
