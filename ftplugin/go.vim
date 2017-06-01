@@ -10,6 +10,7 @@
 
 let s:match_function = [{'pattern': '\m^exported \w\+ \%(\w\+\.\)\?\(\w\+\) should have comment or be unexported$', 'func': 'golint#fixer#exported'},
             \ {'pattern': '\m^package comment should not have leading space$', 'func': 'golint#fixer#not_leading_space'},
+            \ {'pattern': '\m^package comment should be of the form "Package \(\w\+\) \.\.\."$', 'func': 'golint#fixer#package_comment_should_be_of_the_form'},
             \]
 
 function! s:Fix() "{{{
@@ -17,11 +18,12 @@ function! s:Fix() "{{{
     " let qflist = getloclist(0)
     let qflist = getqflist()
     for item in qflist
-        if item['lnum'] == cur_col
+        if item['lnum'] == cur_col && (item['type'] ==# 'W' || item['type'] ==# 'E')
             for mf in s:match_function
                 let list = matchlist(item['text'], mf['pattern'])
                 if !empty(list)
                     exec 'call ' . mf['func'] . '(mf["pattern"], item)'
+                    return
                 endif
             endfor
         endif

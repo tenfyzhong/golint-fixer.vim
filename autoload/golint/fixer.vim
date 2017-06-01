@@ -34,3 +34,30 @@ function! golint#fixer#not_leading_space(pattern, item) "{{{
     return 1
 endfunction "}}}
 
+" handle warning: package comment should be of the form "Package ..."
+function! golint#fixer#package_comment_should_be_of_the_form(pattern, item) "{{{
+    let lnum = a:item['lnum']
+    let content = getline(lnum)
+    let list = matchlist(a:item['text'], a:pattern)
+    if match(content, '\m\c^\s*\/[/*]\s*package ' . list[1] . '\s*\%(\*\/\)\?\s*') != -1
+        " match //Package package_name
+        " match /*Package package_name
+        " match /*Package package_name*/
+        exec 's/\m\c\s*package\s\+'.list[1].'\s*/Package '.list[1].' '
+    elseif match(content, '\m\c^\s*\/[/*]\s*package\s*\%(\*\/\)\?\s*$') != -1
+        " match //Package
+        " match /*Package
+        " match /*Package*/
+        exec 's/\m\cpackage\s*/Package ' . list[1] . ' '
+    elseif match(content, '\m\c^\s*\/[/*]\s*'.list[1].'\s*\%(\*\/\)\?\s*') != -1
+        " match //package_name
+        " match /*package_name
+        " match /*package_name*/
+        exec 's/\m\c\('.list[1].'\)\s*/Package '.list[1].' '
+    else " match no prefix `Package` of `package_name`
+        exec 's/\m\(\/[/*]\)\s*/\1Package '.list[1].' '
+    endif
+    call cursor(lnum, 1)
+    call search(list[1].' ', 'e')
+    startinsert
+endfunction "}}}
