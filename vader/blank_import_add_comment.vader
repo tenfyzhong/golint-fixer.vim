@@ -1,0 +1,39 @@
+Given go (blank import in one line):
+  //Package test
+  package test
+  
+  import _ "log"  
+
+Execute (lint fix):
+  call setqflist([{'lnum': 4, 'bufnr': 1, 'col': 8, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 'text': 'a blank import should be only in a main or test package, or have a comment justifying it'}])
+  GoLintFix
+  stopinsert
+
+Given go (after fix):
+  //Package test
+  package test
+  
+  import _ "log" // 
+
+Given go (blank import more the one line):
+  //Package test
+  package test
+  
+  import (
+      _ "log"  
+  )
+
+Execute (lint fix):
+  call setqflist([{'lnum': 5, 'bufnr': 1, 'col': 8, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 'text': 'a blank import should be only in a main or test package, or have a comment justifying it'}])
+  GoLintFix
+  stopinsert
+
+Given go (after fix):
+  //Package test
+  package test
+  
+  import (
+      _ "log" //
+  )

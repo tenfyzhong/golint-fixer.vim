@@ -61,3 +61,9 @@ function! golint#fixer#package_comment_should_be_of_the_form(pattern, item) "{{{
     call search(list[1].' ', 'e')
     startinsert
 endfunction "}}}
+
+" handle warning: a blank import should be only in a main or test package, or have a comment justifying it
+function! golint#fixer#blank_import_add_comment(pattern, item) "{{{
+    s/\s*$/ \/\/ /
+    startinsert!
+endfunction "}}}
