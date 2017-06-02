@@ -109,6 +109,19 @@ function! golint#fixer#convert_all_caps_to_camelcase(pattern, item) "{{{
     return 1
 endfunction "}}}
 
+" handle warning: don't use leading k in Go names; var kName should be name
+function! golint#fixer#trim_name_leading_k(pattern, item) "{{{
+    echom 'begin'
+    let list = matchlist(a:item['text'], a:pattern)
+    if empty(list)
+        return 0
+    endif
+    let old_name = list[1]
+    let new_name = list[2]
+    exec 's/\<'.old_name.'\>/'.new_name
+    return 1
+endfunction "}}}
+
 function! s:camelcase(word) "{{{ under_word to camelcase
     let new_word = substitute(a:word,'\C\(_\)\=\(.\)','\=submatch(1)==""?tolower(submatch(2)) : toupper(submatch(2))','g')
     let new_word = substitute(new_word, '\m_\+$', '', 'g')
