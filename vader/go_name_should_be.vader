@@ -1,0 +1,33 @@
+Given go (trim k):
+  package test
+  
+  var kName = 0
+
+Execute (GoLintFix):
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 5, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'don''t use leading k in Go names; var kName should be name'}])
+  3
+  GoLintFix
+
+Expect go (after fix):
+  package test
+
+  var name = 0
+
+Given go (trim k):
+  package test
+  
+  var a_name = 0
+
+Execute (GoLintFix):
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 5, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'don''t use underscores in Go names; var a_name should be aName'}])
+  3
+  GoLintFix
+
+Expect go (after fix):
+  package test
+
+  var aName = 0

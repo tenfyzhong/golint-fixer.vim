@@ -109,9 +109,10 @@ function! golint#fixer#convert_all_caps_to_camelcase(pattern, item) "{{{
     return 1
 endfunction "}}}
 
-" handle warning: don't use leading k in Go names; var kName should be name
-function! golint#fixer#trim_name_leading_k(pattern, item) "{{{
-    echom 'begin'
+" handle warning: 
+" don't use leading k in Go names; xxx yyy should be zzz
+" don't use underscores in Go names; xxx yyy should be zzz
+function! golint#fixer#go_name_should_be(pattern, item) "{{{
     let list = matchlist(a:item['text'], a:pattern)
     if empty(list)
         return 0
