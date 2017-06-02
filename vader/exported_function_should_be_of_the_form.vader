@@ -1,0 +1,267 @@
+Given go (//FunA):
+  package test
+  
+  //FunA
+  func FunA() {
+  
+  }
+
+Execute (fix):
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'comment on exported function FunA should be of the form "FunA ..."'}])
+  3
+  GoLintFix
+  stopinsert
+
+Expect go (after fix):
+  package test
+  
+  //FunA 
+  func FunA() {
+  
+  }
+
+Given go (//   FunA    ):
+  package test
+  
+  //   FunA    
+  func FunA() {
+  
+  }
+
+Execute (fix):
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'comment on exported function FunA should be of the form "FunA ..."'}])
+  3
+  GoLintFix
+  stopinsert
+
+Expect go (after fix):
+  package test
+  
+  //FunA 
+  func FunA() {
+  
+  }
+
+Given go (//funa      ):
+  package test
+  
+  //funa      
+  func FunA() {
+  
+  }
+
+Execute (fix):
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'comment on exported function FunA should be of the form "FunA ..."'}])
+  3
+  GoLintFix
+  stopinsert
+
+Expect go (after fix):
+  package test
+  
+  //FunA 
+  func FunA() {
+  
+  }
+
+Given go (/*FunA  ):
+  package test
+  
+  /*FunA  
+   */
+  func FunA() {
+  
+  }
+
+Execute (fix):
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'comment on exported function FunA should be of the form "FunA ..."'}])
+  3
+  GoLintFix
+  stopinsert
+
+Expect go (after fix):
+  package test
+  
+  /*FunA 
+   */
+  func FunA() {
+  
+  }
+
+Given go (/*funa*/):
+  package test
+  
+  /*funa*/
+  func FunA() {
+  
+  }
+
+Execute (fix):
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'comment on exported function FunA should be of the form "FunA ..."'}])
+  3
+  GoLintFix
+  stopinsert
+
+Expect go (after fix):
+  package test
+  
+  /*FunA */
+  func FunA() {
+  
+  }
+
+Given go (/*funa xxx*/):
+  package test
+  
+  /*funa xxx*/
+  func FunA() {
+  
+  }
+
+Execute (fix):
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'comment on exported function FunA should be of the form "FunA ..."'}])
+  3
+  GoLintFix
+  stopinsert
+
+Expect go (after fix):
+  package test
+  
+  /*FunA xxx*/
+  func FunA() {
+  
+  }
+
+Given go (//funa    xxx):
+  package test
+  
+  //funa    xxx
+  func FunA() {
+  
+  }
+
+Execute (fix):
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'comment on exported function FunA should be of the form "FunA ..."'}])
+  3
+  GoLintFix
+  stopinsert
+
+Expect go (after fix):
+  package test
+  
+  //FunA xxx
+  func FunA() {
+  
+  }
+
+Given go (//xxx):
+  package test
+  
+  //xxx
+  func FunA() {
+  
+  }
+
+Execute (fix):
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'comment on exported function FunA should be of the form "FunA ..."'}])
+  3
+  GoLintFix
+  stopinsert
+
+Expect go (after fix):
+  package test
+  
+  //FunA xxx
+  func FunA() {
+  
+  }
+
+Given go (//):
+  package test
+  
+  //
+  func FunA() {
+  
+  }
+
+Execute (fix):
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'comment on exported function FunA should be of the form "FunA ..."'}])
+  3
+  GoLintFix
+  stopinsert
+
+Expect go (after fix):
+  package test
+  
+  //FunA 
+  func FunA() {
+  
+  }
+
+Given go (/*xxx):
+  package test
+  
+  /*xxx
+   */
+  func FunA() {
+  
+  }
+
+Execute (fix):
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'comment on exported function FunA should be of the form "FunA ..."'}])
+  3
+  GoLintFix
+  stopinsert
+
+Expect go (after fix):
+  package test
+  
+  /*FunA xxx
+   */
+  func FunA() {
+  
+  }
+
+Given go (/*xxx*/):
+  package test
+  
+  /*xxx*/
+  func FunA() {
+  
+  }
+
+Execute (fix):
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'comment on exported function FunA should be of the form "FunA ..."'}])
+  3
+  GoLintFix
+  stopinsert
+
+Expect go (after fix):
+  package test
+  
+  /*FunA xxx*/
+  func FunA() {
+  
+  }

@@ -16,7 +16,8 @@ let s:match_function = [
             \ {'pattern': '\m^don''t use an underscore in package name$', 'func': function('golint#fixer#remove_underscore_in_package_name')},
             \ {'pattern': '\m^don''t use ALL_CAPS in Go names; use CamelCase$', 'func': function('golint#fixer#convert_all_caps_to_camelcase')},
             \ {'pattern': '\m^don''t use \%(leading k\|underscores\) in Go names; \%(\w*\) \(\w\+\) should be \(\w\+\)$', 'func': function('golint#fixer#go_name_should_be')},
-            \ {'pattern': '\m^comment on exported \w\+ \w\+ should be of the form "\(\w\+\) ..." (with optional leading article)$', 'func': function('golint#fixer#comment_should_be_of_the_form')},
+            \ {'pattern': '\m^comment on exported \w\+ \w\+ should be of the form "\(\w\+\) \.\.\." (with optional leading article)$', 'func': function('golint#fixer#comment_should_be_of_the_form')},
+            \ {'pattern': '\m^comment on exported \w\+ \%(\w\+.\)\?\w\+ should be of the form "\(\w\+\) \.\.\."$', 'func': function('golint#fixer#comment_should_be_of_the_form')},
             \]
 
 function! s:Fix() "{{{
