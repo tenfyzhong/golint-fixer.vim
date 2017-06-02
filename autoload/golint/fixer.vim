@@ -109,7 +109,12 @@ function! golint#fixer#convert_all_caps_to_camelcase(pattern, item) "{{{
         return 0
     endif
     let new_word = <SID>camelcase(under_word)
-    exec 's/\m\c'.under_word.'/'.new_word
+    if <SID>use_go_rename()
+        call cursor(lnum, a:item['col'])
+        exec 'GoRename ' . new_word
+    else
+        exec 's/\m\c'.under_word.'/'.new_word
+    endif
     return 1
 endfunction "}}}
 
@@ -123,7 +128,12 @@ function! golint#fixer#go_name_should_be(pattern, item) "{{{
     endif
     let old_name = list[1]
     let new_name = list[2]
-    exec 's/\<'.old_name.'\>/'.new_name
+    if <SID>use_go_rename()
+        call cursor(a:item['lnum'], a:item['col'])
+        exec 'GoRename ' . new_name
+    else
+        exec 's/\<'.old_name.'\>/'.new_name
+    endif
     return 1
 endfunction "}}}
 
@@ -136,5 +146,9 @@ function! s:camelcase(word) "{{{ under_word to camelcase
         let new_word = substitute(new_word, '^.', '\u&', '')
     endif
     return new_word
+endfunction "}}}
+
+function! s:use_go_rename() "{{{
+    return get(g:, 'golint_fixer_use_go_rename', 1) && exists(':GoRename')
 endfunction "}}}
 

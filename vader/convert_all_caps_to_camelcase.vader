@@ -1,3 +1,6 @@
+Before:
+  let g:golint_fixer_use_go_rename = 0
+
 Given go (HAHA_HEHE):
   package test
   
