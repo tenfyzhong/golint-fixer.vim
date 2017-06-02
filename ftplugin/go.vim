@@ -8,10 +8,10 @@
 "==============================================================
 
 
-let s:match_function = [{'pattern': '\m^exported \w\+ \%(\w\+\.\)\?\(\w\+\) should have comment or be unexported$', 'func': 'golint#fixer#exported'},
-            \ {'pattern': '\m^package comment should not have leading space$', 'func': 'golint#fixer#not_leading_space'},
-            \ {'pattern': '\m^package comment should be of the form "Package \(\w\+\) \.\.\."$', 'func': 'golint#fixer#package_comment_should_be_of_the_form'},
-            \ {'pattern': '\m^a blank import should be only in a main or test package, or have a comment justifying it$', 'func': 'golint#fixer#blank_import_add_comment'},
+let s:match_function = [{'pattern': '\m^exported \w\+ \%(\w\+\.\)\?\(\w\+\) should have comment or be unexported$', 'func': function('golint#fixer#exported')},
+            \ {'pattern': '\m^package comment should not have leading space$', 'func': function('golint#fixer#not_leading_space')},
+            \ {'pattern': '\m^package comment should be of the form "Package \(\w\+\) \.\.\."$', 'func': function('golint#fixer#package_comment_should_be_of_the_form')},
+            \ {'pattern': '\m^a blank import should be only in a main or test package, or have a comment justifying it$', 'func': function('golint#fixer#blank_import_add_comment')},
             \]
 
 function! s:Fix() "{{{
@@ -23,7 +23,7 @@ function! s:Fix() "{{{
             for mf in s:match_function
                 let list = matchlist(item['text'], mf['pattern'])
                 if !empty(list)
-                    exec 'call ' . mf['func'] . '(mf["pattern"], item)'
+                    call mf['func'](mf["pattern"], item)
                     return
                 endif
             endfor
