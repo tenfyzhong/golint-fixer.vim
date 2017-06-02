@@ -127,11 +127,6 @@ function! golint#fixer#go_name_should_be(pattern, item) "{{{
     return 1
 endfunction "}}}
 
-" handle warning:
-function! golint#fixer#exported_should_be_of_the_form(pattern, item) "{{{
-
-endfunction "}}}
-
 function! s:camelcase(word) "{{{ under_word to camelcase
     let new_word = substitute(a:word,'\C\(_\)\=\(.\)','\=submatch(1)==""?tolower(submatch(2)) : toupper(submatch(2))','g')
     let new_word = substitute(new_word, '\m_\+$', '', 'g')
