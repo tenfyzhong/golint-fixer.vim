@@ -34,28 +34,32 @@ function! golint#fixer#not_leading_space(pattern, item) "{{{
     return 1
 endfunction "}}}
 
-" handle warning: package comment should be of the form "Package ..."
-function! golint#fixer#package_comment_should_be_of_the_form(pattern, item) "{{{
+" handle warning: 
+" package comment should be of the form "Package ..."
+" comment on exported type xxx should be of the form "xxx ..." (with optional leading article)
+" comment on exported xxx yyy should be of the form "yyy ..."
+function! golint#fixer#comment_should_be_of_the_form(pattern, item) "{{{
     let lnum = a:item['lnum']
     let content = getline(lnum)
     let list = matchlist(a:item['text'], a:pattern)
-    if match(content, '\m\c^\s*\/[/*]\s*package ' . list[1] . '\s*\%(\*\/\)\?\s*') != -1
+    let words = split(list[1], ' ')
+    if match(content, '\m\c^\s*\/[/*]\s*' . list[1] . '\s*\%(\*\/\)\?\s*') != -1
         " match //Package package_name
         " match /*Package package_name
         " match /*Package package_name*/
-        exec 's/\m\c\s*package\s\+'.list[1].'\s*/Package '.list[1].' '
-    elseif match(content, '\m\c^\s*\/[/*]\s*package\s*\%(\*\/\)\?\s*$') != -1
+        exec 's/\m\c\s*'.list[1].'\s*/'.list[1].' '
+    elseif len(words) == 2 && match(content, '\m\c^\s*\/[/*]\s*'.words[0].'\s*\%(\*\/\)\?\s*$') != -1
         " match //Package
         " match /*Package
         " match /*Package*/
-        exec 's/\m\cpackage\s*/Package ' . list[1] . ' '
-    elseif match(content, '\m\c^\s*\/[/*]\s*'.list[1].'\s*\%(\*\/\)\?\s*') != -1
+        exec 's/\m\c'.words[0].'\s*/'.list[1].' '
+    elseif len(words) == 2 && match(content, '\m\c^\s*\/[/*]\s*'.words[1].'\s*\%(\*\/\)\?\s*') != -1
         " match //package_name
         " match /*package_name
         " match /*package_name*/
-        exec 's/\m\c\('.list[1].'\)\s*/Package '.list[1].' '
+        exec 's/\m\c'.words[1].'\s*/'.list[1].' '
     else " match no prefix `Package` of `package_name`
-        exec 's/\m\(\/[/*]\)\s*/\1Package '.list[1].' '
+        exec 's/\m\(\/[/*]\)\s*/\1'.list[1].' '
     endif
     call cursor(lnum, 1)
     call search(list[1].' ', 'e')
@@ -121,6 +125,11 @@ function! golint#fixer#go_name_should_be(pattern, item) "{{{
     let new_name = list[2]
     exec 's/\<'.old_name.'\>/'.new_name
     return 1
+endfunction "}}}
+
+" handle warning:
+function! golint#fixer#exported_should_be_of_the_form(pattern, item) "{{{
+
 endfunction "}}}
 
 function! s:camelcase(word) "{{{ under_word to camelcase
