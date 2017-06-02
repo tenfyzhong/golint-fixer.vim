@@ -1,0 +1,73 @@
+Given go (should comment):
+  package test
+  func Func() string{
+    return 'hello'
+  }
+
+Execute (GoLint and GoLintFix):
+  call setqflist([{'lnum': 2, 'bufnr': 1, 'col': 6, 'valid': 1, 'vcol': 0, 'nr': -1, 
+    \'type': 'W', 'pattern': '', 'text': 'exported type Func should have comment or be unexported'}], 'r')
+  2
+  GoLintFix
+  stopinsert
+
+  
+Expect go (after comment): 
+  package test
+  //Func
+  func Func() string{
+    return 'hello'
+  }
+
+Given go (type struct):
+  package test
+  type Haha struct {
+  
+  }
+
+Execute (fix):
+  call setqflist([{'lnum': 2, 'bufnr': 1, 'col': 6, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'exported type Haha should have comment or be unexported'}])
+  2
+  GoLintFix
+  stopinsert
+
+Expect go (after fix):
+  package test
+  //Haha
+  type Haha struct {
+  
+  }
+
+Given go (method should comment):
+  package test
+  //Haha .
+  type Haha struct {
+  
+  }
+    
+  func (a Haha)Func() {
+  
+  }
+
+Execute (fix):
+  call setqflist([{'lnum': 7, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'exported method Haha.Func should have comment or be unexported'}])
+  7
+  GoLintFix
+  stopinsert
+
+Expect go (after fix):
+  package test
+  //Haha .
+  type Haha struct {
+  
+  }
+    
+  //Func
+  func (a Haha)Func() {
+  
+  }
+
