@@ -69,3 +69,23 @@ function! golint#fixer#blank_import_add_comment(pattern, item) "{{{
     startinsert!
     return 1
 endfunction "}}}
+
+" handle warning: don't use an underscore in package name
+function! golint#fixer#remove_underscore_in_package_name(pattern, item) "{{{
+    let lnum = a:item['lnum']
+    let content = getline(lnum)
+    let list = matchlist(content, '\m\s*package\s\+\(\S\+\)')
+    if empty(list)
+        return 0
+    endif
+
+    let package = substitute(list[1], '\s', '', 'g')
+    let new_name = substitute(package, '_', '', 'g')
+    if empty(new_name) && new_name != package
+        return 0
+    endif
+
+    exec 's/'.package.'/'.new_name.'/'
+    return 1
+endfunction "}}}
+

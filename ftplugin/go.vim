@@ -12,6 +12,7 @@ let s:match_function = [{'pattern': '\m^exported \w\+ \%(\w\+\.\)\?\(\w\+\) shou
             \ {'pattern': '\m^package comment should not have leading space$', 'func': function('golint#fixer#not_leading_space')},
             \ {'pattern': '\m^package comment should be of the form "Package \(\w\+\) \.\.\."$', 'func': function('golint#fixer#package_comment_should_be_of_the_form')},
             \ {'pattern': '\m^a blank import should be only in a main or test package, or have a comment justifying it$', 'func': function('golint#fixer#blank_import_add_comment')},
+            \ {'pattern': "^don't use an underscore in package name$", 'func': function('golint#fixer#remove_underscore_in_package_name')},
             \]
 
 function! s:Fix() "{{{
