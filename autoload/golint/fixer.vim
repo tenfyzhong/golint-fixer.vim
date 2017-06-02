@@ -89,3 +89,34 @@ function! golint#fixer#remove_underscore_in_package_name(pattern, item) "{{{
     return 1
 endfunction "}}}
 
+" handle warning: don't use ALL_CAPS in Go names; use CamelCase
+function! golint#fixer#convert_all_caps_to_camelcase(pattern, item) "{{{
+    let lnum = a:item['lnum']
+    let content = getline(lnum)
+    let content = substitute(content, '\s\+', ' ', 'g') " convert tab to space
+    let words = split(content, ' ')
+    let under_word = ''
+    for word in words
+        if word =~# '_'
+            let under_word = word
+        endif
+    endfor
+    if empty(under_word)
+        return 0
+    endif
+    let new_word = <SID>camelcase(under_word)
+    exec 's/\m\c'.under_word.'/'.new_word
+    return 1
+endfunction "}}}
+
+function! s:camelcase(word) "{{{ under_word to camelcase
+    let new_word = substitute(a:word,'\C\(_\)\=\(.\)','\=submatch(1)==""?tolower(submatch(2)) : toupper(submatch(2))','g')
+    let new_word = substitute(new_word, '\m_\+$', '', 'g')
+    if a:word =~# '^_' || a:word =~# '^\l'
+        let new_word = substitute(new_word, '^.', '\l&', '')
+    elseif a:word =~# '^\u'
+        let new_word = substitute(new_word, '^.', '\u&', '')
+    endif
+    return new_word
+endfunction "}}}
+
