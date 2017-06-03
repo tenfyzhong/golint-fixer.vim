@@ -137,6 +137,61 @@ function! golint#fixer#go_name_should_be(pattern, item) "{{{
     return 1
 endfunction "}}}
 
+" handle warning: exported xxx xxx should have its own declaration
+function! golint#fixer#exported_should_have_its_own_declaration(pattern, item) "{{{
+    let list = matchlist(a:item['text'], a:pattern)
+    let keyword = list[1]
+    let lnum = a:item['lnum']
+    let content = getline(lnum)
+
+    let content = substitute(content, '\%(\/[/*].*\)\?$', '', '')   " remove comment
+    let content = substitute(content, keyword, '', '')  " remove var/const keywrod
+    let content = substitute(content, '\s\+', ' ', 'g')  " substitute more then one space to one
+    let content = substitute(content, '^\s*\(.*\S\)\s*$', '\1', '') " trim space
+
+    let name_value = split(content, '\s*=\s*')
+    let names = split(name_value[0], '\s*,\s*')[1:]
+    let last_name_and_type = split(names[-1], '\s\+')
+    let type = ''
+    if len(last_name_and_type) > 1 
+        let names[-1] = last_name_and_type[0]
+        let type = last_name_and_type[1]
+    endif
+
+    let values = []
+    if len(name_value) == 2
+        let values = split(name_value[1], '\s*,\s*')[1:]
+    endif 
+
+    " delete name and value
+    for name in names 
+        exec 's/,\s*'.name.'//'
+    endfor
+    for value in values
+        exec 's/,\s*'.value.'//'
+    endfor
+
+    let i = 0
+    let append_list = []
+    while i < len(names)
+        let new_content = keyword . ' ' . names[i] 
+        if type != ''
+            " has type
+            let new_content .= ' ' . type
+        endif
+        if len(values) > 0
+            " has value
+            let new_content .= ' = ' . values[i]
+        endif
+        call insert(append_list, new_content)
+        let i += 1
+    endwhile
+    call append(lnum-1, append_list)
+    call cursor(lnum+len(names), 1)
+    s/\m\s\+/ /g
+    return 1
+endfunction "}}}
+
 function! s:camelcase(word) "{{{ under_word to camelcase
     let new_word = substitute(a:word,'\C\(_\)\=\(.\)','\=submatch(1)==""?tolower(submatch(2)) : toupper(submatch(2))','g')
     let new_word = substitute(new_word, '\m_\+$', '', 'g')

@@ -18,6 +18,7 @@ let s:match_function = [
             \ {'pattern': '\m^don''t use \%(leading k\|underscores\) in Go names; \%(\w*\) \(\w\+\) should be \(\w\+\)$', 'func': function('golint#fixer#go_name_should_be')},
             \ {'pattern': '\m^comment on exported \w\+ \w\+ should be of the form "\(\w\+\) \.\.\." (with optional leading article)$', 'func': function('golint#fixer#comment_should_be_of_the_form')},
             \ {'pattern': '\m^comment on exported \w\+ \%(\w\+.\)\?\w\+ should be of the form "\(\w\+\) \.\.\."$', 'func': function('golint#fixer#comment_should_be_of_the_form')},
+            \ {'pattern': '\m^exported \(\w\+\) \%(\w\+\) should have its own declaration$', 'func': function('golint#fixer#exported_should_have_its_own_declaration')},
             \]
 
 function! s:Fix() "{{{

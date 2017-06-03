@@ -1,0 +1,202 @@
+Given go (var Ha, Hb int):
+  package test
+  
+  var Ha, Hb int
+
+Execute (fix):
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 5, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'exported var Hb should have its own declaration'}])
+  3
+  GoLintFix
+
+Expect go (after fix):
+  package test
+  
+  var Hb int
+  var Ha int
+
+Given go (var Ha   ,    Hb int):
+  package test
+  
+  var Ha    ,    Hb int
+
+Execute (fix):
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 5, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'exported var Hb should have its own declaration'}])
+  3
+  GoLintFix
+
+Expect go (after fix):
+  package test
+  
+  var Hb int
+  var Ha int
+
+Given go (var Ha, Hb int  = 1, 2):
+  package test
+  
+  var Ha, Hb int = 1, 2
+
+Execute (fix):
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 5, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'exported var Hb should have its own declaration'}])
+  3
+  GoLintFix
+
+Expect go (after fix):
+  package test
+  
+  var Hb int = 2
+  var Ha int = 1
+
+Given go (var Ha, Hb , Hc int):
+  package test
+  
+  var Ha, Hb , Hc int
+
+Execute (fix):
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 5, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'exported var Hb should have its own declaration'}])
+  3
+  GoLintFix
+
+Expect go (after fix):
+  package test
+  
+  var Hc int
+  var Hb int
+  var Ha int
+
+Given go (var Ha, Hb, Hc, Hd int = 1, 2, 3, 4):
+  package test
+  
+  var Ha, Hb, Hc, Hd int = 1, 2, 3, 4
+
+Execute (fix):
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 5, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'exported var Hb should have its own declaration'}])
+  3
+  GoLintFix
+
+Expect go (after fix):
+  package test
+  
+  var Hd int = 4
+  var Hc int = 3
+  var Hb int = 2
+  var Ha int = 1
+
+Given go (var Ha, Hb int //):
+  package test
+  
+  var Ha, Hb int //
+
+Execute (fix):
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 5, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'exported var Hb should have its own declaration'}])
+  3
+  GoLintFix
+
+Expect go (after fix):
+  package test
+  
+  var Hb int
+  var Ha int //
+
+Given go (var Ha, Hb int // haha):
+  package test
+  
+  var Ha, Hb int // haha
+
+Execute (fix):
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 5, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'exported var Hb should have its own declaration'}])
+  3
+  GoLintFix
+
+Expect go (after fix):
+  package test
+  
+  var Hb int
+  var Ha int // haha
+
+Given go (var Ha, Hb = 1, 2):
+  package test
+  
+  var Ha, Hb = 1, 2
+
+Execute (fix):
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 5, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'exported var Hb should have its own declaration'}])
+  3
+  GoLintFix
+
+Expect go (after fix):
+  package test
+  
+  var Hb = 2
+  var Ha = 1
+
+Given go (var Ha, Hb int = 1, 2 /*faa*/):
+  package test
+  
+  var Ha, Hb int = 1, 2 /*faa*/
+
+Execute (fix):
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 5, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'exported var Hb should have its own declaration'}])
+  3
+  GoLintFix
+
+Expect go (after fix):
+  package test
+  
+  var Hb int = 2
+  var Ha int = 1 /*faa*/
+
+Given go (var Ha, Hb int = 1, 2 /*faa):
+  package test
+  
+  var Ha, Hb int = 1, 2 /*faa
+  */
+
+Execute (fix):
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 5, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'exported var Hb should have its own declaration'}])
+  3
+  GoLintFix
+
+Expect go (after fix):
+  package test
+  
+  var Hb int = 2
+  var Ha int = 1 /*faa
+  */
+
+#Given go (var Ha, /*fafa*/Hb int):
+#  package test
+#  
+#  var Ha, /*fafa*/Hb int
+#
+#Execute (fix):
+#  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 5, 'valid': 1, 'vcol': 0, 
+#    \'nr': -1, 'type': 'W', 'pattern': '', 
+#    \'text': 'exported var Hb should have its own declaration'}])
+#  3
+#  GoLintFix
+#
+#Expect go (after fix):
+#  package test
+#  
+#  var Hb int
+#  var Ha int
