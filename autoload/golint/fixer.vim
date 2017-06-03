@@ -17,7 +17,7 @@ function! golint#fixer#exported_should_have_comment(pattern, item) "{{{
         let identifier = list[1]
         let tabs = indent(lnum) / &tabstop
         let content = repeat("\t", tabs)
-        let content .= '//' . identifier 
+        let content .= '// ' . identifier 
         call append(lnum-1, content)
         call cursor(lnum, 1)
         startinsert!
@@ -65,7 +65,7 @@ endfunction "}}}
 
 " handle warning: a blank import should be only in a main or test package, or have a comment justifying it
 function! golint#fixer#blank_import_add_comment(pattern, item) "{{{
-    s/\s*$/ \/\/ /
+    s/\s*$/ \/\//
     startinsert!
 endfunction "}}}
 

@@ -14,7 +14,7 @@ Execute (GoLint and GoLintFix):
   
 Expect go (after comment): 
   package test
-  //Func
+  // Func
   func Func() string{
     return 'hello'
   }
@@ -35,14 +35,14 @@ Execute (fix):
 
 Expect go (after fix):
   package test
-  //Haha
+  // Haha
   type Haha struct {
   
   }
 
 Given go (method should comment):
   package test
-  //Haha .
+  // Haha .
   type Haha struct {
   
   }
@@ -61,12 +61,12 @@ Execute (fix):
 
 Expect go (after fix):
   package test
-  //Haha .
+  // Haha .
   type Haha struct {
   
   }
     
-  //Func
+  // Func
   func (a Haha)Func() {
   
   }
