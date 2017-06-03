@@ -32,9 +32,9 @@ function! s:Fix() "{{{
     for item in qflist
         if item['lnum'] == cur_col && (item['type'] ==# 'W' || item['type'] ==# 'E')
             for mf in s:match_function
-                let list = matchlist(item['text'], mf['pattern'])
-                if !empty(list)
-                    call mf['func'](mf["pattern"], item)
+                let matchlist = matchlist(item['text'], mf['pattern'])
+                if !empty(matchlist)
+                    call mf['func'](mf["pattern"], item, matchlist)
                     return
                 endif
             endfor

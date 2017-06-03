@@ -10,22 +10,19 @@
 " handle warning: export type or method
 " 'exported type xxx should have comment or be unexported'
 " 'exported method xxx.xxx should have comment or be unexported'
-function! golint#fixer#exported_should_have_comment(pattern, item) "{{{ 
-    let list = matchlist(a:item['text'], a:pattern)
-    if !empty(list)
-        let lnum = a:item['lnum']
-        let identifier = list[1]
-        let tabs = indent(lnum) / &tabstop
-        let content = repeat("\t", tabs)
-        let content .= '// ' . identifier 
-        call append(lnum-1, content)
-        call cursor(lnum, 1)
-        startinsert!
-    endif
+function! golint#fixer#exported_should_have_comment(pattern, item, matchlist) "{{{ 
+    let lnum = a:item['lnum']
+    let identifier = a:matchlist[1]
+    let tabs = indent(lnum) / &tabstop
+    let content = repeat("\t", tabs)
+    let content .= '// ' . identifier 
+    call append(lnum-1, content)
+    call cursor(lnum, 1)
+    startinsert!
 endfunction "}}}
 
 " handle warning: package comment should not have leading space
-function! golint#fixer#not_leading_space(pattern, item) "{{{
+function! golint#fixer#not_leading_space(pattern, item, matchlist) "{{{
     let lnum = a:item['lnum']
     let content = getline(lnum)
     s/\m\s*Package/Package/
@@ -35,42 +32,41 @@ endfunction "}}}
 " package comment should be of the form "Package ..."
 " comment on exported type xxx should be of the form "xxx ..." (with optional leading article)
 " comment on exported xxx yyy should be of the form "yyy ..."
-function! golint#fixer#comment_should_be_of_the_form(pattern, item) "{{{
+function! golint#fixer#comment_should_be_of_the_form(pattern, item, matchlist) "{{{
     let lnum = a:item['lnum']
     let content = getline(lnum)
-    let list = matchlist(a:item['text'], a:pattern)
-    let words = split(list[1], ' ')
-    if match(content, '\m\c^\s*\/[/*]\s*' . list[1] . '\s*\%(\*\/\)\?\s*') != -1
+    let words = split(a:matchlist[1], ' ')
+    if match(content, '\m\c^\s*\/[/*]\s*' . a:matchlist[1] . '\s*\%(\*\/\)\?\s*') != -1
         " match //Package package_name
         " match /*Package package_name
         " match /*Package package_name*/
-        exec 's/\m\c\s*'.list[1].'\s*/'.list[1].' '
+        exec 's/\m\c\s*'.a:matchlist[1].'\s*/'.a:matchlist[1].' '
     elseif len(words) == 2 && match(content, '\m\c^\s*\/[/*]\s*'.words[0].'\s*\%(\*\/\)\?\s*$') != -1
         " match //Package
         " match /*Package
         " match /*Package*/
-        exec 's/\m\c'.words[0].'\s*/'.list[1].' '
+        exec 's/\m\c'.words[0].'\s*/'.a:matchlist[1].' '
     elseif len(words) == 2 && match(content, '\m\c^\s*\/[/*]\s*'.words[1].'\s*\%(\*\/\)\?\s*') != -1
         " match //package_name
         " match /*package_name
         " match /*package_name*/
-        exec 's/\m\c'.words[1].'\s*/'.list[1].' '
+        exec 's/\m\c'.words[1].'\s*/'.a:matchlist[1].' '
     else " match no prefix `Package` of `package_name`
-        exec 's/\m\(\/[/*]\)\s*/\1'.list[1].' '
+        exec 's/\m\(\/[/*]\)\s*/\1'.a:matchlist[1].' '
     endif
     call cursor(lnum, 1)
-    call search(list[1].' ', 'e')
+    call search(a:matchlist[1].' ', 'e')
     startinsert
 endfunction "}}}
 
 " handle warning: a blank import should be only in a main or test package, or have a comment justifying it
-function! golint#fixer#blank_import_add_comment(pattern, item) "{{{
+function! golint#fixer#blank_import_add_comment(pattern, item, matchlist) "{{{
     s/\s*$/ \/\//
     startinsert!
 endfunction "}}}
 
 " handle warning: don't use an underscore in package name
-function! golint#fixer#remove_underscore_in_package_name(pattern, item) "{{{
+function! golint#fixer#remove_underscore_in_package_name(pattern, item, matchlist) "{{{
     let lnum = a:item['lnum']
     let content = getline(lnum)
     let list = matchlist(content, '\m\s*package\s\+\(\S\+\)')
@@ -88,7 +84,7 @@ function! golint#fixer#remove_underscore_in_package_name(pattern, item) "{{{
 endfunction "}}}
 
 " handle warning: don't use ALL_CAPS in Go names; use CamelCase
-function! golint#fixer#convert_all_caps_to_camelcase(pattern, item) "{{{
+function! golint#fixer#convert_all_caps_to_camelcase(pattern, item, matchlist) "{{{
     let lnum = a:item['lnum']
     let content = getline(lnum)
     let content = substitute(content, '\s\+', ' ', 'g') " convert tab to space
@@ -114,13 +110,12 @@ endfunction "}}}
 " handle warning: 
 " don't use leading k in Go names; xxx yyy should be zzz
 " don't use underscores in Go names; xxx yyy should be zzz
-function! golint#fixer#go_name_should_be(pattern, item) "{{{
-    let list = matchlist(a:item['text'], a:pattern)
-    if empty(list)
+function! golint#fixer#go_name_should_be(pattern, item, matchlist) "{{{
+    if empty(a:matchlist)
         return 
     endif
-    let old_name = list[1]
-    let new_name = list[2]
+    let old_name = a:matchlist[1]
+    let new_name = a:matchlist[2]
     if <SID>use_go_rename()
         call cursor(a:item['lnum'], a:item['col'])
         exec 'GoRename ' . new_name
@@ -130,9 +125,8 @@ function! golint#fixer#go_name_should_be(pattern, item) "{{{
 endfunction "}}}
 
 " handle warning: exported xxx xxx should have its own declaration
-function! golint#fixer#exported_should_have_its_own_declaration(pattern, item) "{{{
-    let list = matchlist(a:item['text'], a:pattern)
-    let keyword = list[1]
+function! golint#fixer#exported_should_have_its_own_declaration(pattern, item, matchlist) "{{{
+    let keyword = a:matchlist[1]
     let lnum = a:item['lnum']
     let content = getline(lnum)
 
@@ -184,12 +178,12 @@ function! golint#fixer#exported_should_have_its_own_declaration(pattern, item) "
 endfunction "}}}
 
 " handle warning: Should drop = 0 from declaration of var xxx; it is the zero value
-function! golint#fixer#drop_zero_value_from_declaration(pattern, item) "{{{
+function! golint#fixer#drop_zero_value_from_declaration(pattern, item, matchlist) "{{{
     s/\s*=\s*\%(0\|""\)//
 endfunction "}}}
 
 " handle warning: if block ends with a return statement, so drop this else and outdent its block
-function! golint#fixer#drop_else_and_outdent_its_block(pattern, item) "{{{
+function! golint#fixer#drop_else_and_outdent_its_block(pattern, item, matchlist) "{{{
     let lnum = a:item['lnum']
     let content = getline(lnum)
     let list = matchlist(content, '\melse\s*{\s*\(.*\)')
@@ -213,14 +207,14 @@ function! golint#fixer#drop_else_and_outdent_its_block(pattern, item) "{{{
 endfunction "}}}
 
 " handle warning: context.Context should be the first parameter of a function
-function! golint#fixer#context_should_be_the_first_parameter_of_a_function(pattern, item) "{{{
+function! golint#fixer#context_should_be_the_first_parameter_of_a_function(pattern, item, matchlist) "{{{
     s/\m\(func.*(\)\(.*\),\s*\(\w\+\s\+context.Context\)\(.*\)/\1\3, \2\4/
 endfunction "}}}
 
 " handle warning: error should be the last type when returning multiple items
 " swap parameter position
 " swap return position
-function! golint#fixer#error_should_be_the_last_type(pattern, item) "{{{
+function! golint#fixer#error_should_be_the_last_type(pattern, item, matchlist) "{{{
     " get error position
     let content = getline(a:item['lnum'])
     let list = matchlist(content, 'func.*(\(.*\))')
