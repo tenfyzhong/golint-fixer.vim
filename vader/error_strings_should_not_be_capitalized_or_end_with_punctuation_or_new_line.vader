@@ -1,0 +1,67 @@
+Given go ("newline are fun\n"):
+  package foo
+  import "fmt"
+  var errUnexp = fmt.Errorf("newline are fun\n")
+
+Execute (fix):
+  call setqflist([{'lnum': 3, 'bufnr': 5, 'col': 27, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'error strings should not be capitalized or end with punctuation or a newline'}])
+  3
+  GoLintFix
+
+Expect go (after fix):
+  package foo
+  import "fmt"
+  var errUnexp = fmt.Errorf("newline are fun")
+
+Given go ("newline are fun."):
+  package foo
+  import "fmt"
+  var errUnexp = fmt.Errorf("newline are fun.")
+
+Execute (fix):
+  call setqflist([{'lnum': 3, 'bufnr': 5, 'col': 27, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'error strings should not be capitalized or end with punctuation or a newline'}])
+  3
+  GoLintFix
+
+Expect go (after fix):
+  package foo
+  import "fmt"
+  var errUnexp = fmt.Errorf("newline are fun")
+
+Given go (`newline are fun.`):
+  package foo
+  import "fmt"
+  var errUnexp = fmt.Errorf(`newline are fun.`)
+
+Execute (fix):
+  call setqflist([{'lnum': 3, 'bufnr': 5, 'col': 27, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'error strings should not be capitalized or end with punctuation or a newline'}])
+  3
+  GoLintFix
+
+Expect go (after fix):
+  package foo
+  import "fmt"
+  var errUnexp = fmt.Errorf(`newline are fun`)
+
+Given go (`newline are fun\n`):
+  package foo
+  import "fmt"
+  var errUnexp = fmt.Errorf(`newline are fun.`)
+
+Execute (fix):
+  call setqflist([{'lnum': 3, 'bufnr': 5, 'col': 27, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'error strings should not be capitalized or end with punctuation or a newline'}])
+  3
+  GoLintFix
+
+Expect go (after fix):
+  package foo
+  import "fmt"
+  var errUnexp = fmt.Errorf(`newline are fun`)

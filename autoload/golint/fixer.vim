@@ -278,6 +278,11 @@ function! golint#fixer#error_var_should_have_name_of_the_form(pattern, item, mat
     exec 's/\m\<'.a:matchlist[1].'\>/'.prefix.'\u'.a:matchlist[1].'/g'
 endfunction "}}}
 
+" hanle warning: error strings should not be capitalized or end with punctuation or a newline
+function! golint#fixer#error_strings_should_not_be_capitalized_or_end_with_punctuation_or_new_line(pattern, item, matchlist) "{{{
+    s/\m\%(\\n\|\.\)\(["`]\)/\1
+endfunction "}}}
+
 function! s:camelcase(word) "{{{ under_word to camelcase
     let new_word = substitute(a:word,'\C\(_\)\=\(.\)','\=submatch(1)==""?tolower(submatch(2)) : toupper(submatch(2))','g')
     let new_word = substitute(new_word, '\m_\+$', '', 'g')

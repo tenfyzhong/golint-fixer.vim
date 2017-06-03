@@ -25,6 +25,7 @@ let s:match_function = [
             \ {'pattern': '\M^error should be the last type when returning multiple items$', 'func': function('golint#fixer#error_should_be_the_last_type')},
             \ {'pattern': '\m^should replace \(.*\)(fmt.Sprintf(\.\.\.)) with \(.*\)\.Errorf(\.\.\.)$', 'func': function('golint#fixer#should_replace_sprintf_with_errorf')},
             \ {'pattern': '\m^error var \(.*\) should have name of the form [eE]rrFoo$', 'func': function('golint#fixer#error_var_should_have_name_of_the_form')},
+            \ {'pattern': '\m^error strings should not be capitalized or end with punctuation or a newline$', 'func': function('golint#fixer#error_strings_should_not_be_capitalized_or_end_with_punctuation_or_new_line')},
             \]
 
 function! s:Fix() "{{{
