@@ -192,6 +192,12 @@ function! golint#fixer#exported_should_have_its_own_declaration(pattern, item) "
     return 1
 endfunction "}}}
 
+" handle warning: Should drop = 0 from declaration of var xxx; it is the zero value
+function! golint#fixer#drop_zero_value_from_declaration(pattern, item) "{{{
+    s/\s*=\s*\%(0\|""\)//
+    return 1
+endfunction "}}}
+
 function! s:camelcase(word) "{{{ under_word to camelcase
     let new_word = substitute(a:word,'\C\(_\)\=\(.\)','\=submatch(1)==""?tolower(submatch(2)) : toupper(submatch(2))','g')
     let new_word = substitute(new_word, '\m_\+$', '', 'g')

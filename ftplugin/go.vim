@@ -19,6 +19,7 @@ let s:match_function = [
             \ {'pattern': '\m^comment on exported \w\+ \w\+ should be of the form "\(\w\+\) \.\.\." (with optional leading article)$', 'func': function('golint#fixer#comment_should_be_of_the_form')},
             \ {'pattern': '\m^comment on exported \w\+ \%(\w\+.\)\?\w\+ should be of the form "\(\w\+\) \.\.\."$', 'func': function('golint#fixer#comment_should_be_of_the_form')},
             \ {'pattern': '\m^exported \(\w\+\) \%(\w\+\) should have its own declaration$', 'func': function('golint#fixer#exported_should_have_its_own_declaration')},
+            \ {'pattern': '\m^should drop = .\+ from declaration of var .\+; it is the zero value$', 'func': function('golint#fixer#drop_zero_value_from_declaration')}
             \]
 
 function! s:Fix() "{{{
