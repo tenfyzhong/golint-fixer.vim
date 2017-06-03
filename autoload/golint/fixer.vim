@@ -21,9 +21,7 @@ function! golint#fixer#exported_should_have_comment(pattern, item) "{{{
         call append(lnum-1, content)
         call cursor(lnum, 1)
         startinsert!
-        return 1
     endif
-    return 0
 endfunction "}}}
 
 " handle warning: package comment should not have leading space
@@ -31,7 +29,6 @@ function! golint#fixer#not_leading_space(pattern, item) "{{{
     let lnum = a:item['lnum']
     let content = getline(lnum)
     s/\m\s*Package/Package/
-    return 1
 endfunction "}}}
 
 " handle warning: 
@@ -64,14 +61,12 @@ function! golint#fixer#comment_should_be_of_the_form(pattern, item) "{{{
     call cursor(lnum, 1)
     call search(list[1].' ', 'e')
     startinsert
-    return 1
 endfunction "}}}
 
 " handle warning: a blank import should be only in a main or test package, or have a comment justifying it
 function! golint#fixer#blank_import_add_comment(pattern, item) "{{{
     s/\s*$/ \/\/ /
     startinsert!
-    return 1
 endfunction "}}}
 
 " handle warning: don't use an underscore in package name
@@ -80,17 +75,16 @@ function! golint#fixer#remove_underscore_in_package_name(pattern, item) "{{{
     let content = getline(lnum)
     let list = matchlist(content, '\m\s*package\s\+\(\S\+\)')
     if empty(list)
-        return 0
+        return 
     endif
 
     let package = substitute(list[1], '\s', '', 'g')
     let new_name = substitute(package, '_', '', 'g')
     if empty(new_name) && new_name != package
-        return 0
+        return 
     endif
 
     exec 's/'.package.'/'.new_name.'/'
-    return 1
 endfunction "}}}
 
 " handle warning: don't use ALL_CAPS in Go names; use CamelCase
@@ -106,7 +100,7 @@ function! golint#fixer#convert_all_caps_to_camelcase(pattern, item) "{{{
         endif
     endfor
     if empty(under_word)
-        return 0
+        return 
     endif
     let new_word = <SID>camelcase(under_word)
     if <SID>use_go_rename()
@@ -115,7 +109,6 @@ function! golint#fixer#convert_all_caps_to_camelcase(pattern, item) "{{{
     else
         exec 's/\m\c'.under_word.'/'.new_word
     endif
-    return 1
 endfunction "}}}
 
 " handle warning: 
@@ -124,7 +117,7 @@ endfunction "}}}
 function! golint#fixer#go_name_should_be(pattern, item) "{{{
     let list = matchlist(a:item['text'], a:pattern)
     if empty(list)
-        return 0
+        return 
     endif
     let old_name = list[1]
     let new_name = list[2]
@@ -134,7 +127,6 @@ function! golint#fixer#go_name_should_be(pattern, item) "{{{
     else
         exec 's/\<'.old_name.'\>/'.new_name
     endif
-    return 1
 endfunction "}}}
 
 " handle warning: exported xxx xxx should have its own declaration
@@ -189,13 +181,11 @@ function! golint#fixer#exported_should_have_its_own_declaration(pattern, item) "
     call append(lnum-1, append_list)
     call cursor(lnum+len(names), 1)
     s/\m\s\+/ /g
-    return 1
 endfunction "}}}
 
 " handle warning: Should drop = 0 from declaration of var xxx; it is the zero value
 function! golint#fixer#drop_zero_value_from_declaration(pattern, item) "{{{
     s/\s*=\s*\%(0\|""\)//
-    return 1
 endfunction "}}}
 
 function! s:camelcase(word) "{{{ under_word to camelcase
