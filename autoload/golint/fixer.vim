@@ -212,6 +212,11 @@ function! golint#fixer#drop_else_and_outdent_its_block(pattern, item) "{{{
     endif
 endfunction "}}}
 
+" handle warning: context.Context should be the first parameter of a function
+function! golint#fixer#context_should_be_the_first_parameter_of_a_function(pattern, item) "{{{
+    s/\m\(func.*(\)\(.*\),\s*\(\w\+\s\+context.Context\)\(.*\)/\1\3, \2\4/
+endfunction "}}}
+
 function! s:camelcase(word) "{{{ under_word to camelcase
     let new_word = substitute(a:word,'\C\(_\)\=\(.\)','\=submatch(1)==""?tolower(submatch(2)) : toupper(submatch(2))','g')
     let new_word = substitute(new_word, '\m_\+$', '', 'g')

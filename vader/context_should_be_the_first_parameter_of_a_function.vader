@@ -1,0 +1,37 @@
+Given go (context as last parameter):
+  package foo
+  import "context"
+  func x(s string, ctx context.Context) {
+  }
+
+Execute (fix):
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'context.Context should be the first parameter of a function'}])
+  3
+  GoLintFix
+
+Expect go (after fix):
+  package foo
+  import "context"
+  func x(ctx context.Context, s string) {
+  }
+
+Given go (context as middle parameter):
+  package foo
+  import "context"
+  func x(s string, ctx context.Context, x int) {
+  }
+
+Execute (fix):
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'context.Context should be the first parameter of a function'}])
+  3
+  GoLintFix
+
+Expect go (after fix):
+  package foo
+  import "context"
+  func x(ctx context.Context, s string, x int) {
+  }
