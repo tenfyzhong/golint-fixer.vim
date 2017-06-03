@@ -217,6 +217,60 @@ function! golint#fixer#context_should_be_the_first_parameter_of_a_function(patte
     s/\m\(func.*(\)\(.*\),\s*\(\w\+\s\+context.Context\)\(.*\)/\1\3, \2\4/
 endfunction "}}}
 
+" handle warning: error should be the last type when returning multiple items
+" swap parameter position
+" swap return position
+function! golint#fixer#error_should_be_the_last_type(pattern, item) "{{{
+    " get error position
+    let content = getline(a:item['lnum'])
+    let list = matchlist(content, 'func.*(\(.*\))')
+
+    let types = split(list[1], '\s*,\s*')
+    let error_pos = 0
+    for type in types
+        if type =~# '\<error\>'
+            break
+        else
+            let error_pos += 1
+        endif
+    endfor
+
+    call cursor(a:item['lnum'], 1)
+    call search('{')
+    normal %
+    let function_last_lnum = line('.')
+    call cursor(a:item['lnum'], 1)
+
+    s/\m\(.*(.\{-}\)\(\w*\s*error\),\s*\(.*\)\().*\)/\1\3, \2\4/
+    s/\m\s*,\s*/, /g
+    s/\m(\s*/(/
+    s/\m\s*)/)/
+
+    let lnum = a:item['lnum']
+    while lnum < function_last_lnum
+        call cursor(lnum, 1)
+        let match = search('return\s*\S*,\s*\S*', '', function_last_lnum)
+        if match == 0
+            " no match
+            break
+        endif
+        let match_content = getline(match)
+        let match_content = substitute(match_content, 'return\s\+\(.*\)\%(\/[/*].*\)\?', '\1', '')
+        " BUG added by tenfyzhong 2017-06-03 22:50 match_content has a \t prefix
+        let match_content = substitute(match_content, '\s\+', ' ', 'g')
+        let return_values = split(match_content, '\s*,\s*')
+        let error_value = return_values[error_pos]
+        call remove(return_values, error_pos)
+        call add(return_values, error_value)
+        let new_return_value = join(return_values, ', ')
+        let new_return_value = substitute(new_return_value, '\s\+', ' ', 'g')
+        let new_return_value = substitute(new_return_value, '^\s*', '', 'g')
+        let new_return_value = substitute(new_return_value, '\s*$', '', 'g')
+        exec 's/\mreturn\s*\zs.*\ze\%(\/[/*].*\)\?/'.new_return_value
+        let lnum = line('.') + 1
+    endwhile
+endfunction "}}}
+
 function! s:camelcase(word) "{{{ under_word to camelcase
     let new_word = substitute(a:word,'\C\(_\)\=\(.\)','\=submatch(1)==""?tolower(submatch(2)) : toupper(submatch(2))','g')
     let new_word = substitute(new_word, '\m_\+$', '', 'g')
