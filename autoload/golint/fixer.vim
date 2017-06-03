@@ -272,6 +272,12 @@ function! golint#fixer#should_replace_sprintf_with_errorf(pattern, item, matchli
     exec 's/\m'.a:matchlist[1].'(fmt\.Sprintf(\(.*\)))/'.a:matchlist[2].'.Errorf(\1)'
 endfunction "}}}
 
+" handle warning: error var xxx should have name of the form errFoo
+function! golint#fixer#error_var_should_have_name_of_the_form(pattern, item, matchlist) "{{{
+    let prefix = a:matchlist[1] =~# '^\u' ? 'Err' : 'err'
+    exec 's/\m\<'.a:matchlist[1].'\>/'.prefix.'\u'.a:matchlist[1].'/g'
+endfunction "}}}
+
 function! s:camelcase(word) "{{{ under_word to camelcase
     let new_word = substitute(a:word,'\C\(_\)\=\(.\)','\=submatch(1)==""?tolower(submatch(2)) : toupper(submatch(2))','g')
     let new_word = substitute(new_word, '\m_\+$', '', 'g')

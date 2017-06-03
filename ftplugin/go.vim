@@ -23,7 +23,8 @@ let s:match_function = [
             \ {'pattern': '^if block ends with a return statement, so drop this else and outdent its block$', 'func': function('golint#fixer#drop_else_and_outdent_its_block')},
             \ {'pattern': '\M^context.Context should be the first parameter of a function$', 'func': function('golint#fixer#context_should_be_the_first_parameter_of_a_function')},
             \ {'pattern': '\M^error should be the last type when returning multiple items$', 'func': function('golint#fixer#error_should_be_the_last_type')},
-            \ {'pattern': '\m^should replace \(.*\)(fmt.Sprintf(\.\.\.)) with \(.*\)\.Errorf(\.\.\.)$', 'func': function('golint#fixer#should_replace_sprintf_with_errorf')}
+            \ {'pattern': '\m^should replace \(.*\)(fmt.Sprintf(\.\.\.)) with \(.*\)\.Errorf(\.\.\.)$', 'func': function('golint#fixer#should_replace_sprintf_with_errorf')},
+            \ {'pattern': '\m^error var \(.*\) should have name of the form [eE]rrFoo$', 'func': function('golint#fixer#error_var_should_have_name_of_the_form')},
             \]
 
 function! s:Fix() "{{{
