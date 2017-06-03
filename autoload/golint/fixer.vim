@@ -265,6 +265,13 @@ function! golint#fixer#error_should_be_the_last_type(pattern, item, matchlist) "
     endwhile
 endfunction "}}}
 
+" handle warning: should replace %s(fmt.Sprintf(...)) with %s.Errorf(...)
+" should replace errors.New(fmt.Sprintf(...)) with fmt.Errorf(...)
+" should replace t.Error(fmt.Sprintf(...)) with t.Errorf(...)
+function! golint#fixer#should_replace_sprintf_with_errorf(pattern, item, matchlist) "{{{
+    exec 's/\m'.a:matchlist[1].'(fmt\.Sprintf(\(.*\)))/'.a:matchlist[2].'.Errorf(\1)'
+endfunction "}}}
+
 function! s:camelcase(word) "{{{ under_word to camelcase
     let new_word = substitute(a:word,'\C\(_\)\=\(.\)','\=submatch(1)==""?tolower(submatch(2)) : toupper(submatch(2))','g')
     let new_word = substitute(new_word, '\m_\+$', '', 'g')

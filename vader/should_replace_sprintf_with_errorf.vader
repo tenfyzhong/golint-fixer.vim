@@ -1,0 +1,45 @@
+Given go (errors.New):
+  package foo
+  import "errors"
+  import "fmt"
+  func f(x int) error {
+  	return errors.New(fmt.Sprintf("something %d", x))
+  }
+
+Execute (fix):
+  call setqflist([{'lnum': 5, 'bufnr': 5, 'col': 9, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'should replace errors.New(fmt.Sprintf(...)) with fmt.Errorf(...)'}])
+  5
+  GoLintFix
+
+Expect go (after fix):
+  package foo
+  import "errors"
+  import "fmt"
+  func f(x int) error {
+  	return fmt.Errorf("something %d", x)
+  }
+
+Given go (t.Error):
+  package foo
+  import "testing"
+  import "fmt"
+  func f(t *testing.T) {
+  	t.Error(fmt.Sprintf("something %d", 1))
+  }
+
+Execute (fix):
+  call setqflist([{'lnum': 5, 'bufnr': 5, 'col': 2, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'should replace t.Error(fmt.Sprintf(...)) with t.Errorf(...)'}])
+  5
+  GoLintFix
+
+Expect go (after fix):
+  package foo
+  import "testing"
+  import "fmt"
+  func f(t *testing.T) {
+  	t.Errorf("something %d", 1)
+  }
