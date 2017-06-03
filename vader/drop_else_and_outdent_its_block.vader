@@ -1,0 +1,66 @@
+Given go (else { /*):
+  package test
+
+  func name(i int) int {
+  	if i == 0 {
+  		return i
+  	} else { /*a
+  		*/
+  		i = 1
+  	}
+  	return i
+  }
+
+Execute (fix):
+  call setqflist([{'lnum': 6, 'bufnr': 1, 'col': 9, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'if block ends with a return statement, so drop this else and outdent its block'}])
+  6
+  GoLintFix
+
+Expect go (after fix):
+  package test
+
+  func name(i int) int {
+  	if i == 0 {
+  		return i
+  	}
+  	/*a
+  	*/
+  	i = 1
+  	
+  	return i
+  }
+
+
+# TODO added by tenfyzhong 2017-06-03 20:26 
+#Given go (else {):
+#  package test
+#
+#  func name(i int) int {
+#  	if i == 0 {
+#  		return i
+#  	} else {
+#  		i = 1
+#  	}
+#  	return i
+#  }
+#
+#Execute (fix):
+#  call setqflist([{'lnum': 6, 'bufnr': 1, 'col': 9, 'valid': 1, 'vcol': 0, 
+#    \'nr': -1, 'type': 'W', 'pattern': '', 
+#    \'text': 'if block ends with a return statement, so drop this else and outdent its block'}])
+#  6
+#  GoLintFix
+#
+#Expect go (after fix):
+#  package test
+#
+#  func name(i int) int {
+#  	if i == 0 {
+#  		return i
+#  	}
+#  	i = 1
+#  	
+#  	return i
+#  }

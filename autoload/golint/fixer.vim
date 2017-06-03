@@ -188,6 +188,30 @@ function! golint#fixer#drop_zero_value_from_declaration(pattern, item) "{{{
     s/\s*=\s*\%(0\|""\)//
 endfunction "}}}
 
+" handle warning: if block ends with a return statement, so drop this else and outdent its block
+function! golint#fixer#drop_else_and_outdent_its_block(pattern, item) "{{{
+    let lnum = a:item['lnum']
+    let content = getline(lnum)
+    let list = matchlist(content, '\melse\s*{\s*\(.*\)')
+    let comment = list[1]
+
+    call cursor(lnum, 1)
+    call search('{')
+    normal %
+    let end = line('.') 
+
+    " delete `else {`
+    exec lnum.'s/\s*else\s*{.*//'
+    " delete }
+    exec end.'s/}//'
+    exec (lnum+1).','.(end-1).'s/\t\|    //'
+    if comment != ''
+        let tabs = indent(lnum+1) / &tabstop
+        let comment = repeat("\t", tabs) . comment
+        call append(lnum, comment)
+    endif
+endfunction "}}}
+
 function! s:camelcase(word) "{{{ under_word to camelcase
     let new_word = substitute(a:word,'\C\(_\)\=\(.\)','\=submatch(1)==""?tolower(submatch(2)) : toupper(submatch(2))','g')
     let new_word = substitute(new_word, '\m_\+$', '', 'g')
