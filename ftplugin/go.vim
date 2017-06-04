@@ -39,23 +39,31 @@ let s:match_function = [
             \ {'pattern': '\m.*', 'func': function('golint#fixer#default')}, 
             \]
 
-function! s:Fix() "{{{
+function! s:process(list) "{{{
     let cur_col = line('.')
-    " let qflist = getloclist(0)
-    let qflist = getqflist()
-    for item in qflist
+    for item in a:list
         if item['lnum'] == cur_col && (item['type'] ==# 'W' || item['type'] ==# 'E')
             for mf in s:match_function
                 let matchlist = matchlist(item['text'], mf['pattern'])
                 if !empty(matchlist)
                     call mf['func'](mf["pattern"], item, matchlist)
-                    return
+                    return 1
                 endif
             endfor
         endif
     endfor
+    return 0
+endfunction "}}}
+
+function! s:fix() "{{{
+    let qflist = getqflist()
+    let result = <SID>process(qflist)
+    if result == 0
+        let loclist = getloclist(0)
+        call <SID>process(loclist)
+    endif
 endfunction "}}}
 
 nnoremap <leader>lf :GoLintFix<cr>
 
-command! -nargs=0 GoLintFix call <SID>Fix()
+command! -nargs=0 GoLintFix call <SID>fix()
