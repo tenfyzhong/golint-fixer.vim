@@ -32,6 +32,7 @@ let s:match_function = [
             \ {'pattern': '\m^should omit 2nd value from range; this loop is equivalent to `for .\+ :\?= range \.\.\.`$', 'func': function('golint#fixer#omit_2nd_value_from_range')}, 
             \ {'pattern': '^receiver name should be a reflection of its identity; don''t use generic names such as "this" or "self"$', 'func': function('golint#fixer#receive_name_should_not_be_this_or_self')}, 
             \ {'pattern': '\m^receiver name \(.*\) should be consistent with previous receiver name \(.*\) for .*$', 'func': function('golint#fixer#receive_name_should_be_consistent_with_previous_receive_name')}, 
+            \ {'pattern': '^receiver name should not be an underscore$', 'func': function('golint#fixer#receive_name_should_not_be_an_underscore')}, 
             \]
 
 function! s:Fix() "{{{

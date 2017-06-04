@@ -344,6 +344,12 @@ function! golint#fixer#receive_name_should_be_consistent_with_previous_receive_n
     call <SID>scope_rename(old_name, new_name, lnum, function_last_lnum)
 endfunction "}}}
 
+" handle warning: receiver name should not be an underscore
+function! golint#fixer#receive_name_should_not_be_an_underscore(pattern, item, matchlist) "{{{
+    " func /*.*/ ( /*.*/ _ *bar )()
+    s/\m\(func\s*\%(\/\*.*\*\/\)\?\s*(\s*\%(\/\*.*\*\/\)\?\s*\)_\(\s*\%(\/\*.*\*\/\)\?\s*\*\?\s*\%(\/\*.*\*\/\)\?\s*\(\w\)\w*)\)/\1\3\2/
+endfunction "}}}
+
 function! s:scope_rename(old_name, new_name, begin_lnum, end_lnum) "{{{
     let lnum = a:begin_lnum
     while lnum < a:end_lnum
