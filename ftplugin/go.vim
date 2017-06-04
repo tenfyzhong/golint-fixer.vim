@@ -47,10 +47,6 @@ function! s:Fix() "{{{
     endfor
 endfunction "}}}
 
-nnoremap <Plug>GoLintFix :GoLintFix<cr>
-
-if !hasmapto('<Plug>GoLintFix')
-    nmap <leader>lf <Plug>GoLintFix 
-endif
+nnoremap <leader>lf :GoLintFix<cr>
 
 command! -nargs=0 GoLintFix call <SID>Fix()
