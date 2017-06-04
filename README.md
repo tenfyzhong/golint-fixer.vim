@@ -4,8 +4,7 @@ A vim tool for fix goling warnings, which generate by
 
 
 # Demo
-<iframe src="https://player.vimeo.com/video/220190594" width="640" height="535" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-<p><a href="https://vimeo.com/220190594">golint_fixer_demo</a> from <a href="https://vimeo.com/user67359802">tenfyzhong</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+[![golint-fixer-demo-pic](http://ac-HSNl7zbI.clouddn.com/pdBWqOkOCoFGw8BkNQT7joRgRGGT1T3jiBc98IXE.jpg)](https://vimeo.com/220190594)
 
 # Install
 ## Use a plugin manager
