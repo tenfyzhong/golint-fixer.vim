@@ -283,6 +283,11 @@ function! golint#fixer#error_strings_should_not_be_capitalized_or_end_with_punct
     s/\m\%(\\n\|\.\)\(["`]\)/\1
 endfunction "}}}
 
+" handle warning: should not use dot imports
+function! golint#fixer#should_not_use_dot_imports(pattern, item, matchlist) "{{{
+    s/\mimport\s\+\.\s\+/import /
+endfunction "}}}
+
 function! s:camelcase(word) "{{{ under_word to camelcase
     let new_word = substitute(a:word,'\C\(_\)\=\(.\)','\=submatch(1)==""?tolower(submatch(2)) : toupper(submatch(2))','g')
     let new_word = substitute(new_word, '\m_\+$', '', 'g')
