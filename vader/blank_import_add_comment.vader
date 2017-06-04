@@ -39,3 +39,55 @@ Expect go (after fix):
   import (
       _ "log" //
   )
+
+Given go (var()):
+  package foo
+  var (
+  	Ha, Hb int
+  )
+
+Execute:
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 2, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'exported var Hb should have its own declaration'}])
+  3
+  GoLintFix
+
+Expect go:
+  package foo
+  var (
+  	Hb int
+  	Ha int
+  )
+
+Given go (  var Haa, Hbb):
+  package foo
+  	var Haa, Hbb int
+
+Execute:
+  call setqflist([{'lnum': 2, 'bufnr': 1, 'col': 6, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'exported var Hbb should have its own declaration'}])
+  2
+  GoLintFix
+
+Expect go:
+  package foo
+  	var Hbb int
+  	var Haa int
+
+Given go (  var Ha1, Hb2 int = 1, 2):
+  package foo
+  	var Ha1, Hb2 int = 1, 2
+
+Execute:
+  call setqflist([{'lnum': 2, 'bufnr': 1, 'col': 6, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'exported var Hb2 should have its own declaration'}])
+  2
+  GoLintFix
+
+Expect go:
+  package foo
+  	var Hb2 int = 2
+  	var Ha1 int = 1

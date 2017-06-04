@@ -137,6 +137,10 @@ function! golint#fixer#exported_should_have_its_own_declaration(pattern, item, m
     let lnum = a:item['lnum']
     let content = getline(lnum)
 
+    let has_keyword = match(content, '\m\<'.keyword.'\>') != -1
+    let tabs = indent(lnum) / &tabstop
+    let leading_space = repeat("\t", tabs)
+
     let content = substitute(content, '\%(\/[/*].*\)\?$', '', '')   " remove comment
     let content = substitute(content, keyword, '', '')  " remove var/const keywrod
     let content = substitute(content, '\s\+', ' ', 'g')  " substitute more then one space to one
@@ -167,7 +171,12 @@ function! golint#fixer#exported_should_have_its_own_declaration(pattern, item, m
     let i = 0
     let append_list = []
     while i < len(names)
-        let new_content = keyword . ' ' . names[i] 
+        let new_content = leading_space
+        if has_keyword 
+            let new_content .= keyword . ' ' . names[i]
+        else
+            let new_content .= names[i]
+        endif
         if type != ''
             " has type
             let new_content .= ' ' . type
@@ -182,6 +191,8 @@ function! golint#fixer#exported_should_have_its_own_declaration(pattern, item, m
     call append(lnum-1, append_list)
     call cursor(lnum+len(names), 1)
     s/\m\s\+/ /g
+    s/^\s*//
+    exec 's/^/'.leading_space
 endfunction "}}}
 
 " handle warning: Should drop = 0 from declaration of var xxx; it is the zero value
