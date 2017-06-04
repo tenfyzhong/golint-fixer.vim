@@ -304,6 +304,14 @@ function! golint#fixer#should_replace_xxx_with_yyy(pattern, item, matchlist) "{{
     exec 's/\m'.xxx.'/'.yyy
 endfunction "}}}
 
+" handle warning: package comment is detached; there should be no blank lines between it and the package statement
+function! golint#fixer#should_be_no_blank_lines(pattern, item, matchlist) "{{{
+    let lnum = a:item['lnum']
+    while getline(lnum) =~# '^\s*$'
+        exec lnum . 'd'
+    endwhile
+endfunction  "}}}
+
 function! s:camelcase(word) "{{{ under_word to camelcase
     let new_word = substitute(a:word,'\C\(_\)\=\(.\)','\=submatch(1)==""?tolower(submatch(2)) : toupper(submatch(2))','g')
     let new_word = substitute(new_word, '\m_\+$', '', 'g')

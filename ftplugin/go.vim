@@ -28,6 +28,7 @@ let s:match_function = [
             \ {'pattern': '\m^error strings should not be capitalized or end with punctuation or a newline$', 'func': function('golint#fixer#error_strings_should_not_be_capitalized_or_end_with_punctuation_or_new_line')},
             \ {'pattern': '^should not use dot imports$', 'func': function('golint#fixer#should_not_use_dot_imports')}, 
             \ {'pattern': '\m^should replace \(.*\)\s\+with\s\(.*\)$', 'func': function('golint#fixer#should_replace_xxx_with_yyy')}, 
+            \ {'pattern': '^package comment is detached; there should be no blank lines between it and the package statement$', 'func': function('golint#fixer#should_be_no_blank_lines')}, 
             \]
 
 function! s:Fix() "{{{
