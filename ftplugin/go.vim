@@ -20,7 +20,7 @@ let s:match_function = [
             \ {'pattern': '\m^comment on exported \w\+ \%(\w\+.\)\?\w\+ should be of the form "\(\w\+\) \.\.\."$', 'func': function('golint#fixer#comment_should_be_of_the_form')},
             \ {'pattern': '\m^exported \(\w\+\) \%(\w\+\) should have its own declaration$', 'func': function('golint#fixer#exported_should_have_its_own_declaration')},
             \ {'pattern': '\m^should drop = \(.\+\) from declaration of var .\+; it is the zero value$', 'func': function('golint#fixer#drop_zero_value_from_declaration')},
-            \ {'pattern': '^if block ends with a return statement, so drop this else and outdent its block$', 'func': function('golint#fixer#drop_else_and_outdent_its_block')},
+            \ {'pattern': '^if block ends with a return statement, so drop this else and outdent its block\%( (move short variable declaration to its own line if necessary)\)\?$', 'func': function('golint#fixer#drop_else_and_outdent_its_block')},
             \ {'pattern': '\M^context.Context should be the first parameter of a function$', 'func': function('golint#fixer#context_should_be_the_first_parameter_of_a_function')},
             \ {'pattern': '\M^error should be the last type when returning multiple items$', 'func': function('golint#fixer#error_should_be_the_last_type')},
             \ {'pattern': '\m^should replace \(.*\)(fmt.Sprintf(\.\.\.)) with \(.*\)\.Errorf(\.\.\.)$', 'func': function('golint#fixer#should_replace_sprintf_with_errorf')},

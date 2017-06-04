@@ -32,6 +32,34 @@ Expect go (after fix):
   	return i
   }
 
+Given go (move short variable declaration to its own line if necessary):
+  package foo
+  func g(f func() bool) string {
+  	if ok := f(); ok {
+  		return "it's okay"
+  	} else { // MATCH /if.*return.*else.*outdent.*short.*var.*declaration/
+  		return "it's NOT okay!"
+  	}
+  }
+
+Execute:
+  call setqflist([{'lnum': 5, 'bufnr': 49, 'col': 9, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'if block ends with a return statement, so drop this else and outdent its block (move short variable declaration to its own line if necessary)'}])
+  5
+  GoLintFix
+
+Expect go:
+  package foo
+  func g(f func() bool) string {
+  	if ok := f(); ok {
+  		return "it's okay"
+  	}
+  	// MATCH /if.*return.*else.*outdent.*short.*var.*declaration/
+  	return "it's NOT okay!"
+  	
+  }
+
 
 # TODO added by tenfyzhong 2017-06-03 20:26 
 #Given go (else {):

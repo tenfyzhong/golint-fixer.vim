@@ -192,7 +192,9 @@ function! golint#fixer#drop_zero_value_from_declaration(pattern, item, matchlist
     exec 's/\s*=\s*\(\/\*.*\*\/\)\?\s*'.drop.'/\1'
 endfunction "}}}
 
-" handle warning: if block ends with a return statement, so drop this else and outdent its block
+" handle warning: 
+" if block ends with a return statement, so drop this else and outdent its block
+" if block ends with a return statement, so drop this else and outdent its block (move short variable declaration to its own line if necessary)
 function! golint#fixer#drop_else_and_outdent_its_block(pattern, item, matchlist) "{{{
     let lnum = a:item['lnum']
     let content = getline(lnum)
