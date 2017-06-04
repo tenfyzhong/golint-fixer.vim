@@ -24,8 +24,14 @@ endfunction "}}}
 " handle warning: package comment should not have leading space
 function! golint#fixer#not_leading_space(pattern, item, matchlist) "{{{
     let lnum = a:item['lnum']
-    let content = getline(lnum)
-    s/\m\s*Package/Package/
+    while 1
+        let content = getline(lnum)
+        if match(content, 'Package') != -1
+            break
+        endif
+        let lnum += 1
+    endwhile
+    exec lnum . 's/\m\s*Package/Package/'
 endfunction "}}}
 
 " handle warning: 
