@@ -4,7 +4,7 @@ Given go (duration):
   var timeMsec = time.Duration(1)
 
 Execute:
-  call setqflist([{'lnum': 3, 'bufnr': 49, 'col': 5, 'valid': 1, 'vcol': 0, 
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 5, 'valid': 1, 'vcol': 0, 
     \'nr': -1, 'type': 'W', 'pattern': '', 
     \'text': 'var timeMsec is of type time.Duration; don''t use unit-specific suffix "Msec"'}])
   3
@@ -21,7 +21,7 @@ Given go (time):
   var timeSecs = time.Second
 
 Execute:
-  call setqflist([{'lnum': 3, 'bufnr': 49, 'col': 5, 'valid': 1, 'vcol': 0, 
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 5, 'valid': 1, 'vcol': 0, 
     \'nr': -1, 'type': 'W', 'pattern': '', 
     \'text': 'var timeSecs is of type time.Duration; don''t use unit-specific suffix "Secs"'}])
   3

@@ -4,7 +4,7 @@ Given go (error unexp):
   var unexp = errors.New("some unexport error")
 
 Execute (fix):
-  call setqflist([{'lnum': 3, 'bufnr': 5, 'col': 5, 'valid': 1, 'vcol': 0, 
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 5, 'valid': 1, 'vcol': 0, 
     \'nr': -1, 'type': 'W', 'pattern': '', 
     \'text': 'error var unexp should have name of the form errFoo'}])
   3
@@ -21,7 +21,7 @@ Given go (error Exp):
   var Exp = errors.New("some exported error")
 
 Execute (fix):
-  call setqflist([{'lnum': 3, 'bufnr': 5, 'col': 5, 'valid': 1, 'vcol': 0, 
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 5, 'valid': 1, 'vcol': 0, 
     \'nr': -1, 'type': 'W', 'pattern': '', 
     \'text': 'error var Exp should have name of the form ErrFoo'}])
   3
@@ -38,7 +38,7 @@ Given go (fmt.Errorf unexp):
   var unexp = fmt.Errorf("some unexport error\n")
 
 Execute (fix):
-  call setqflist([{'lnum': 3, 'bufnr': 5, 'col': 5, 'valid': 1, 'vcol': 0, 
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 5, 'valid': 1, 'vcol': 0, 
     \'nr': -1, 'type': 'W', 'pattern': '', 
     \'text': 'error var unexp should have name of the form errFoo'}])
   3
@@ -55,7 +55,7 @@ Given go (fmt.Errorf Exp):
   var Exp = fmt.Errorf("some exported error\n")
 
 Execute (fix):
-  call setqflist([{'lnum': 3, 'bufnr': 5, 'col': 5, 'valid': 1, 'vcol': 0, 
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 5, 'valid': 1, 'vcol': 0, 
     \'nr': -1, 'type': 'W', 'pattern': '', 
     \'text': 'error var Exp should have name of the form ErrFoo'}])
   3

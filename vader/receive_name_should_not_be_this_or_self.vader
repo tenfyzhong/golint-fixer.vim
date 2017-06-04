@@ -6,7 +6,7 @@ Given go (this foo):
   }
 
 Execute:
-  call setqflist([{'lnum': 3, 'bufnr': 49, 'col': 1, 'valid': 1, 'vcol': 0, 
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
     \'nr': -1, 'type': 'W', 'pattern': '', 
     \'text': 'receiver name should be a reflection of its identity; don''t use generic names such as "this" or "self"'}])
   3
@@ -27,7 +27,7 @@ Given go (this /*f*/foo):
   }
 
 Execute:
-  call setqflist([{'lnum': 3, 'bufnr': 49, 'col': 1, 'valid': 1, 'vcol': 0, 
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
     \'nr': -1, 'type': 'W', 'pattern': '', 
     \'text': 'receiver name should be a reflection of its identity; don''t use generic names such as "this" or "self"'}])
   3
@@ -48,7 +48,7 @@ Given go (this *foo):
   }
 
 Execute:
-  call setqflist([{'lnum': 3, 'bufnr': 49, 'col': 1, 'valid': 1, 'vcol': 0, 
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
     \'nr': -1, 'type': 'W', 'pattern': '', 
     \'text': 'receiver name should be a reflection of its identity; don''t use generic names such as "this" or "self"'}])
   3
@@ -69,7 +69,7 @@ Given go (this /*f*/foo):
   }
 
 Execute:
-  call setqflist([{'lnum': 3, 'bufnr': 49, 'col': 1, 'valid': 1, 'vcol': 0, 
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
     \'nr': -1, 'type': 'W', 'pattern': '', 
     \'text': 'receiver name should be a reflection of its identity; don''t use generic names such as "this" or "self"'}])
   3
@@ -90,7 +90,7 @@ Given go (self foo):
   }
 
 Execute:
-  call setqflist([{'lnum': 3, 'bufnr': 49, 'col': 1, 'valid': 1, 'vcol': 0, 
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
     \'nr': -1, 'type': 'W', 'pattern': '', 
     \'text': 'receiver name should be a reflection of its identity; don''t use generic names such as "this" or "self"'}])
   3
@@ -111,7 +111,7 @@ Given go (self /*f*/foo):
   }
 
 Execute:
-  call setqflist([{'lnum': 3, 'bufnr': 49, 'col': 1, 'valid': 1, 'vcol': 0, 
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
     \'nr': -1, 'type': 'W', 'pattern': '', 
     \'text': 'receiver name should be a reflection of its identity; don''t use generic names such as "this" or "self"'}])
   3
@@ -132,7 +132,7 @@ Given go (self *foo):
   }
 
 Execute:
-  call setqflist([{'lnum': 3, 'bufnr': 49, 'col': 1, 'valid': 1, 'vcol': 0, 
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
     \'nr': -1, 'type': 'W', 'pattern': '', 
     \'text': 'receiver name should be a reflection of its identity; don''t use generic names such as "this" or "self"'}])
   3
@@ -153,7 +153,7 @@ Given go (self /*f*/foo):
   }
 
 Execute:
-  call setqflist([{'lnum': 3, 'bufnr': 49, 'col': 1, 'valid': 1, 'vcol': 0, 
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
     \'nr': -1, 'type': 'W', 'pattern': '', 
     \'text': 'receiver name should be a reflection of its identity; don''t use generic names such as "this" or "self"'}])
   3

@@ -9,7 +9,7 @@ Given go (a bar):
   }
 
 Execute:
-  call setqflist([{'lnum': 6, 'bufnr': 49, 'col': 1, 'valid': 1, 'vcol': 0, 'nr': -1, 'type': 'W', 'pattern': '', 'text': 'receiver name a should be consistent with previous receiver name b for bar'}])
+  call setqflist([{'lnum': 6, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 'nr': -1, 'type': 'W', 'pattern': '', 'text': 'receiver name a should be consistent with previous receiver name b for bar'}])
   6
   GoLintFix
 
@@ -34,7 +34,7 @@ Given go (a /*fa*/ bar):
   }
 
 Execute:
-  call setqflist([{'lnum': 6, 'bufnr': 49, 'col': 1, 'valid': 1, 'vcol': 0, 'nr': -1, 'type': 'W', 'pattern': '', 'text': 'receiver name a should be consistent with previous receiver name b for bar'}])
+  call setqflist([{'lnum': 6, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 'nr': -1, 'type': 'W', 'pattern': '', 'text': 'receiver name a should be consistent with previous receiver name b for bar'}])
   6
   GoLintFix
 
@@ -59,7 +59,7 @@ Given go (a *bar):
   }
 
 Execute:
-  call setqflist([{'lnum': 6, 'bufnr': 49, 'col': 1, 'valid': 1, 'vcol': 0, 'nr': -1, 'type': 'W', 'pattern': '', 'text': 'receiver name a should be consistent with previous receiver name b for bar'}])
+  call setqflist([{'lnum': 6, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 'nr': -1, 'type': 'W', 'pattern': '', 'text': 'receiver name a should be consistent with previous receiver name b for bar'}])
   6
   GoLintFix
 
@@ -84,7 +84,7 @@ Given go (a /*fa*/ *bar):
   }
 
 Execute:
-  call setqflist([{'lnum': 6, 'bufnr': 49, 'col': 1, 'valid': 1, 'vcol': 0, 'nr': -1, 'type': 'W', 'pattern': '', 'text': 'receiver name a should be consistent with previous receiver name b for bar'}])
+  call setqflist([{'lnum': 6, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 'nr': -1, 'type': 'W', 'pattern': '', 'text': 'receiver name a should be consistent with previous receiver name b for bar'}])
   6
   GoLintFix
 

@@ -5,7 +5,7 @@ Given go (_ bar):
   }
 
 Execute:
-  call setqflist([{'lnum': 3, 'bufnr': 49, 'col': 1, 'valid': 1, 'vcol': 0, 'nr': -1, 'type': 'W', 'pattern': '', 'text': 'receiver name should not be an underscore'}])
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 'nr': -1, 'type': 'W', 'pattern': '', 'text': 'receiver name should not be an underscore'}])
   3
   GoLintFix
 
@@ -22,7 +22,7 @@ Given go (_ /*fda*/ bar):
   }
 
 Execute:
-  call setqflist([{'lnum': 3, 'bufnr': 49, 'col': 1, 'valid': 1, 'vcol': 0, 'nr': -1, 'type': 'W', 'pattern': '', 'text': 'receiver name should not be an underscore'}])
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 'nr': -1, 'type': 'W', 'pattern': '', 'text': 'receiver name should not be an underscore'}])
   3
   GoLintFix
 
@@ -39,7 +39,7 @@ Given go (_ *bar):
   }
 
 Execute:
-  call setqflist([{'lnum': 3, 'bufnr': 49, 'col': 1, 'valid': 1, 'vcol': 0, 'nr': -1, 'type': 'W', 'pattern': '', 'text': 'receiver name should not be an underscore'}])
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 'nr': -1, 'type': 'W', 'pattern': '', 'text': 'receiver name should not be an underscore'}])
   3
   GoLintFix
 
@@ -56,7 +56,7 @@ Given go (_ /*fda*/ *bar):
   }
 
 Execute:
-  call setqflist([{'lnum': 3, 'bufnr': 49, 'col': 1, 'valid': 1, 'vcol': 0, 'nr': -1, 'type': 'W', 'pattern': '', 'text': 'receiver name should not be an underscore'}])
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 'nr': -1, 'type': 'W', 'pattern': '', 'text': 'receiver name should not be an underscore'}])
   3
   GoLintFix
 

@@ -78,7 +78,7 @@ Given go (const block):
   )
 
 Execute:
-  call setqflist([{'lnum': 3, 'bufnr': 49, 'col': 2, 'valid': 1, 'vcol': 0, 
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 2, 'valid': 1, 'vcol': 0, 
     \'nr': -1, 'type': 'W', 'pattern': '', 
     \'text': 'exported const A should have comment (or a comment on this block) or be unexported'}])
   3

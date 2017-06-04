@@ -7,7 +7,7 @@ Given go (x, _ := range):
   }
 
 Execute (fix):
-  call setqflist([{'lnum': 4, 'bufnr': 49, 'col': 9, 'valid': 1 , 'vcol': 0, 
+  call setqflist([{'lnum': 4, 'bufnr': 1, 'col': 9, 'valid': 1 , 'vcol': 0, 
     \'nr': -1, 'type': 'W', 'pattern': '', 
     \'text': 'should omit 2nd value from range; this loop is equivalent to `for x := range ...`'}])
   4
@@ -30,7 +30,7 @@ Given go (x, /*fafa*/_ := range):
   }
 
 Execute (fix):
-  call setqflist([{'lnum': 4, 'bufnr': 49, 'col': 9, 'valid': 1 , 'vcol': 0, 
+  call setqflist([{'lnum': 4, 'bufnr': 1, 'col': 9, 'valid': 1 , 'vcol': 0, 
     \'nr': -1, 'type': 'W', 'pattern': '', 
     \'text': 'should omit 2nd value from range; this loop is equivalent to `for x := range ...`'}])
   4
@@ -53,7 +53,7 @@ Given go (x, /*fafa*/_ /*fadfa*/  := range):
   }
 
 Execute (fix):
-  call setqflist([{'lnum': 4, 'bufnr': 49, 'col': 9, 'valid': 1 , 'vcol': 0, 
+  call setqflist([{'lnum': 4, 'bufnr': 1, 'col': 9, 'valid': 1 , 'vcol': 0, 
     \'nr': -1, 'type': 'W', 'pattern': '', 
     \'text': 'should omit 2nd value from range; this loop is equivalent to `for x := range ...`'}])
   4
@@ -77,7 +77,7 @@ Given go (x, _ = range):
   }
 
 Execute (fix):
-  call setqflist([{'lnum': 5, 'bufnr': 49, 'col': 9, 'valid': 1 , 'vcol': 0, 
+  call setqflist([{'lnum': 5, 'bufnr': 1, 'col': 9, 'valid': 1 , 'vcol': 0, 
     \'nr': -1, 'type': 'W', 'pattern': '', 
     \'text': 'should omit 2nd value from range; this loop is equivalent to `for x = range ...`'}])
   5
@@ -102,7 +102,7 @@ Given go (x, /*fafa*/_ = range):
   }
 
 Execute (fix):
-  call setqflist([{'lnum': 5, 'bufnr': 49, 'col': 9, 'valid': 1 , 'vcol': 0, 
+  call setqflist([{'lnum': 5, 'bufnr': 1, 'col': 9, 'valid': 1 , 'vcol': 0, 
     \'nr': -1, 'type': 'W', 'pattern': '', 
     \'text': 'should omit 2nd value from range; this loop is equivalent to `for x = range ...`'}])
   5
@@ -127,7 +127,7 @@ Given go (x, /*fafa*/_ /*fadfa*/  = range):
   }
 
 Execute (fix):
-  call setqflist([{'lnum': 5, 'bufnr': 49, 'col': 9, 'valid': 1 , 'vcol': 0, 
+  call setqflist([{'lnum': 5, 'bufnr': 1, 'col': 9, 'valid': 1 , 'vcol': 0, 
     \'nr': -1, 'type': 'W', 'pattern': '', 
     \'text': 'should omit 2nd value from range; this loop is equivalent to `for x = range ...`'}])
   5

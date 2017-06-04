@@ -42,7 +42,7 @@ Given go (struct field):
   }
 
 Execute (fix):
-  call setqflist([{'lnum': 3, 'bufnr': 5, 'col': 2, 'valid': 1, 'vcol': 0, 
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 2, 'valid': 1, 'vcol': 0, 
     \'nr': -1, 'type': 'W', 'pattern': '', 
     \'text': 'don''t use underscores in Go names; struct field x_down should be xDown'}])
   3
@@ -62,7 +62,7 @@ Given go (struct field Url):
   }
 
 Execute (fix):
-  call setqflist([{'lnum': 4, 'bufnr': 5, 'col': 2, 'valid': 1, 'vcol': 0, 
+  call setqflist([{'lnum': 4, 'bufnr': 1, 'col': 2, 'valid': 1, 'vcol': 0, 
     \'nr': -1, 'type': 'W', 'pattern': '', 
     \'text': 'struct field Url should be URL'}])
   4
@@ -80,7 +80,7 @@ Given go (const fooId):
   const fooId = "foo"
 
 Execute (GoLintFix):
-  call setqflist([{'lnum': 2, 'bufnr': 5, 'col': 7, 'valid': 1, 'vcol': 0, 
+  call setqflist([{'lnum': 2, 'bufnr': 1, 'col': 7, 'valid': 1, 'vcol': 0, 
     \'nr': -1, 'type': 'W', 'pattern': '', 
     \'text': 'const fooId should be fooID'}])
   2
@@ -96,7 +96,7 @@ Given go (func f_it):
   }
 
 Execute (GoLintFix):
-  call setqflist([{'lnum': 2, 'bufnr': 5, 'col': 6, 'valid': 1, 'vcol': 0, 
+  call setqflist([{'lnum': 2, 'bufnr': 1, 'col': 6, 'valid': 1, 'vcol': 0, 
     \'nr': -1, 'type': 'W', 'pattern': '', 
     \'text': 'don''t use underscores in Go names; func f_it should be fIt'}])
   2
@@ -114,7 +114,7 @@ Given go (more_underscore):
   }
 
 Execute (GoLintFix):
-  call setqflist([{'lnum': 3, 'bufnr': 5, 'col': 2, 'valid': 1, 'vcol': 0, 
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 2, 'valid': 1, 'vcol': 0, 
     \'nr': -1, 'type': 'W', 'pattern': '', 
     \'text': 'don''t use underscores in Go names; var more_underscore should be moreUnderscore'}])
   3
@@ -136,7 +136,7 @@ Given go (isEof):
   }
 
 Execute (GoLintFix):
-  call setqflist([{'lnum': 5, 'bufnr': 5, 'col': 5, 'valid': 1, 'vcol': 0, 
+  call setqflist([{'lnum': 5, 'bufnr': 1, 'col': 5, 'valid': 1, 'vcol': 0, 
     \'nr': -1, 'type': 'W', 'pattern': '', 
     \'text': 'var isEof should be isEOF'}])
   5
@@ -161,7 +161,7 @@ Given go (range var theIp):
   }
 
 Execute (GoLintFix):
-  call setqflist([{'lnum': 5, 'bufnr': 5, 'col': 9, 'valid': 1, 'vcol': 0, 
+  call setqflist([{'lnum': 5, 'bufnr': 1, 'col': 9, 'valid': 1, 'vcol': 0, 
     \'nr': -1, 'type': 'W', 'pattern': '', 
     \'text': 'range var theIp should be theIP'}])
   5
@@ -181,7 +181,7 @@ Given go (func param underscore):
   func f(bad_name int) {}
 
 Execute (GoLintFix):
-  call setqflist([{'lnum': 2, 'bufnr': 5, 'col': 8, 'valid': 1, 'vcol': 0, 
+  call setqflist([{'lnum': 2, 'bufnr': 1, 'col': 8, 'valid': 1, 'vcol': 0, 
     \'nr': -1, 'type': 'W', 'pattern': '', 
     \'text': 'don''t use underscores in Go names; func parameter bad_name should be badName'}])
   2
@@ -196,7 +196,7 @@ Given go (func result underscore):
   func g() (no_way int) { return 0  }
 
 Execute (GoLintFix):
-  call setqflist([{'lnum': 2, 'bufnr': 5, 'col': 11, 'valid': 1, 'vcol': 0, 
+  call setqflist([{'lnum': 2, 'bufnr': 1, 'col': 11, 'valid': 1, 'vcol': 0, 
     \'nr': -1, 'type': 'W', 'pattern': '', 
     \'text': 'don''t use underscores in Go names; func result no_way should be noWay'}])
   2
@@ -212,7 +212,7 @@ Given go (method parameter underscore):
   func (t *tWow) f(more_under string)    {}
 
 Execute (GoLintFix):
-  call setqflist([{'lnum': 3, 'bufnr': 5, 'col': 18, 'valid': 1, 'vcol': 0, 
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 18, 'valid': 1, 'vcol': 0, 
     \'nr': -1, 'type': 'W', 'pattern': '', 
     \'text': 'don''t use underscores in Go names; method parameter more_under should be moreUnder'}])
   3
@@ -229,7 +229,7 @@ Given go (method result underscore):
   func (t *tWow) g() (still_more string) { return ""  }
 
 Execute (GoLintFix):
-  call setqflist([{'lnum': 3, 'bufnr': 5, 'col': 21, 'valid': 1, 'vcol': 0, 
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 21, 'valid': 1, 'vcol': 0, 
     \'nr': -1, 'type': 'W', 'pattern': '', 
     \'text': 'don''t use underscores in Go names; method result still_more should be stillMore'}])
   3
@@ -247,7 +247,7 @@ Given go (interface method parameter underscore):
   }
 
 Execute (GoLintFix):
-  call setqflist([{'lnum': 3, 'bufnr': 5, 'col': 4, 'valid': 1, 'vcol': 0, 
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 4, 'valid': 1, 'vcol': 0, 
     \'nr': -1, 'type': 'W', 'pattern': '', 
     \'text': 'don''t use underscores in Go names; interface method parameter foo_bar should be fooBar'}])
   3

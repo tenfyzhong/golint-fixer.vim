@@ -6,7 +6,7 @@ Given go (+= 1):
   }
 
 Execute (fix):
-  call setqflist([{'lnum': 4, 'bufnr': 5, 'col': 2, 'valid': 1, 'vcol': 0, 
+  call setqflist([{'lnum': 4, 'bufnr': 1, 'col': 2, 'valid': 1, 'vcol': 0, 
     \'nr': -1, 'type': 'W', 'pattern': '', 
     \'text': 'should replace x += 1 with x++'}])
   4
@@ -27,7 +27,7 @@ Given go (-=1):
   }
 
 Execute (fix):
-  call setqflist([{'lnum': 4, 'bufnr': 5, 'col': 2, 'valid': 1, 'vcol': 0, 
+  call setqflist([{'lnum': 4, 'bufnr': 1, 'col': 2, 'valid': 1, 'vcol': 0, 
     \'nr': -1, 'type': 'W', 'pattern': '', 
     \'text': 'should replace x -= 1 with x--'}])
   4
@@ -48,7 +48,7 @@ Given go (/*fa*/-=/*fas*/1):
   }
 
 Execute (fix):
-  call setqflist([{'lnum': 4, 'bufnr': 5, 'col': 2, 'valid': 1, 'vcol': 0, 
+  call setqflist([{'lnum': 4, 'bufnr': 1, 'col': 2, 'valid': 1, 'vcol': 0, 
     \'nr': -1, 'type': 'W', 'pattern': '', 
     \'text': 'should replace x -= 1 with x--'}])
   4

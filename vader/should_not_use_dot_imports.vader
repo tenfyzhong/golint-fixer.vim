@@ -3,7 +3,7 @@ Given go (dot import):
   import . "fmt"
 
 Execute (fix):
-  call setqflist([{'lnum': 2, 'bufnr': 5, 'col': 8, 'valid': 1, 'vcol': 0, 
+  call setqflist([{'lnum': 2, 'bufnr': 1, 'col': 8, 'valid': 1, 'vcol': 0, 
     \'nr': -1, 'type': 'W', 'pattern': '', 
     \'text': 'should not use dot imports'}])
   2
