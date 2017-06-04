@@ -1,0 +1,79 @@
+*golint-fixer*      Vim version 8.0     author: tenfyzhong
+
+This help file explains the golint-fixer Vim Plugin. 
+
+============================================================================
+
+Introduction
+
+A vim tool for fix goling warnings, which generate by vim-go or ale. 
+
+============================================================================
+
+Contents:
+1. Install                                      |golint-fixer-install|
+2. Dependence                                   |golint-fixer-dependence|
+3. Usage                                        |golint-fixer-usage|
+4. Command                                      |golint-fixer-command|
+5. Mapping                                      |golint-fixer-mapping|
+6. Setting                                      |golint-fixer-setting|
+
+============================================================================
+
+1. Install                                              *golint-fixer-install*
+1.1 Use a plugin manager
+for [vim-plug](https://github.com/junegunn/vim-plug):  
+Add `PlugAdd 'tenfyzhong/golint-fixer.vim'` to you .vimrc if you use .
+
+1.2 Manual
+1.clone the repo. 
+```sh
+git clone https://github.com/tenfyzhong/golint-fixer.vim.git ~/.vim/bundle
+```
+2. add `rtp+=~/.vim/bundle/golint-fixer.vim` to you .vimrc
+
+
+2. Dependence                                          *golint-fixer-dependence*
+- vim-go or ale
+
+
+3. Usage                                                    *golint-fixer-usage*
+- Use vim-go or ale to lint check. It'll add the warning to the quickfix or loclist. 
+- Go to the warning line. Run command `:GoLintFix` or nmap `<leader>lf`(if used). 
+
+
+4. Command                                                *golint-fixer-command*
+
+                                                                     *GoLintFix* 
+                                                                    *:GoLintFix*
+`:GoLintFix`                                       
+Try to fix the warning. 
+
+
+5. Mapping                                                *golint-fixer-mapping*
+                                                                    *<leader>lf*
+`<leader>lf`                                                        
+if `g:golint_fixer_use_default_mapping` equal 1.  
+Try to fix the warning. 
+
+
+6. Setting                                                *golint-fixer-setting*
+
+                                              *golint_fixer_use_default_mapping* 
+                                            *g:golint_fixer_use_default_mapping*
+`g:golint_fixer_use_default_mapping`        
+Type: bool  
+Default: 1  
+Map `<leader>lf` to fix warning.   
+`let g:golint_fixer_use_default_mapping = 1`  
+
+                                                    *golint_fixer_use_go_rename* 
+                                                  *g:golint_fixer_use_go_rename*
+`g:golint_fixer_use_go_rename`
+Type: bool  
+Default: 1  
+Use `:GoRename` to rename identify if usable.   
+`let g:golint_fixer_use_go_rename = 1`  
+
+
+" vim:ft=help:iskeyword+=-:iskeyword+=58
