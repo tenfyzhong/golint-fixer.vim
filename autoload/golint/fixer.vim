@@ -87,12 +87,12 @@ endfunction "}}}
 function! golint#fixer#convert_all_caps_to_camelcase(pattern, item, matchlist) "{{{
     let lnum = a:item['lnum']
     let content = getline(lnum)
-    let content = substitute(content, '\s\+', ' ', 'g') " convert tab to space
-    let words = split(content, ' ')
+    let words = split(content, '\s\+')
     let under_word = ''
     for word in words
         if word =~# '_'
             let under_word = word
+            break
         endif
     endfor
     if empty(under_word)
@@ -103,7 +103,7 @@ function! golint#fixer#convert_all_caps_to_camelcase(pattern, item, matchlist) "
         call cursor(lnum, a:item['col'])
         exec 'GoRename ' . new_word
     else
-        exec 's/\m\c'.under_word.'/'.new_word
+        exec 's/\m\c'.under_word.'/'.new_word.'/g'
     endif
 endfunction "}}}
 

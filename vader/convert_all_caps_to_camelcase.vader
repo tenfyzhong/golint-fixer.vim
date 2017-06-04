@@ -48,3 +48,35 @@ Expect go (after fix):
   package test
   
   var hahaHehe = 0
+
+Given go (HAHA_HEHE // ALL_CAPS):
+  package test
+  
+  var HAHA_HEHE = 0 //ALL_CAPS
+
+Execute (fix):
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 5, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 'text': 'don''t use ALL_CAPS in Go names; use CamelCase'}])
+  3
+  GoLintFix
+
+Expect go (after fix):
+  package test
+  
+  var HahaHehe = 0 //ALL_CAPS
+
+Given go (HAHA_HEHE // HAHA_HEHE):
+  package test
+  
+  var HAHA_HEHE = 0 // HAHA_HEHE
+
+Execute (fix):
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 5, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 'text': 'don''t use ALL_CAPS in Go names; use CamelCase'}])
+  3
+  GoLintFix
+
+Expect go (after fix):
+  package test
+  
+  var HahaHehe = 0 // HahaHehe
