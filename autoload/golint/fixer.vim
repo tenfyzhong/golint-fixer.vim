@@ -388,6 +388,13 @@ function! golint#fixer#time_dont_use_unit_specific_suffix(pattern, item, matchli
     endif
 endfunction "}}}
 
+" handle warning: should omit type %s from declaration of var %s; it will be inferred from the right-hand side
+function! golint#fixer#should_omit_type_from_declaration(pattern, item, matchlist) "{{{
+    let type = a:matchlist[1]
+    let type = substitute(type, '[*.]', '\\&', 'g')
+    exec 's/\m'.type.'\s*//'
+endfunction "}}}
+
 function! s:scope_rename(old_name, new_name, begin_lnum, end_lnum) "{{{
     let lnum = a:begin_lnum
     while lnum < a:end_lnum

@@ -1,0 +1,31 @@
+Given go (int):
+  package foo
+  var i int = 7
+
+Execute:
+  call setqflist([{'lnum': 2, 'bufnr': 49, 'col': 7, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'should omit type int from declaration of var i; it will be inferred from the right-hand side'}])
+  2
+  GoLintFix
+
+Expect go:
+  package foo
+  var i = 7
+
+Given go (*http.ServeMux):
+  package foo
+  import "net/http"
+  var mux *http.ServeMux = http.NewServeMux()
+
+Execute:
+  call setqflist([{'lnum': 3, 'bufnr': 49, 'col': 7, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'should omit type *http.ServeMux from declaration of var mux; it will be inferred from the right-hand side'}])
+  3
+  GoLintFix
+
+Expect go:
+  package foo
+  import "net/http"
+  var mux = http.NewServeMux()
