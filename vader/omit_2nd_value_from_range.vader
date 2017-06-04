@@ -1,0 +1,143 @@
+Given go (x, _ := range):
+  package foo
+  func name() {
+  	var m map[string]int
+  	for x, _ := range m {
+  	}
+  }
+
+Execute (fix):
+  call setqflist([{'lnum': 4, 'bufnr': 1, 'col': 9, 'valid': 1 , 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'should omit 2nd value from range; this loop is equivalent to `for x := range ...`'}])
+  4
+  GoLintFix
+
+Expect go (after fix):
+  package foo
+  func name() {
+  	var m map[string]int
+  	for x := range m {
+  	}
+  }
+
+Given go (x, /*fafa*/_ := range):
+  package foo
+  func name() {
+  	var m map[string]int
+  	for x, /*fafa*/_ := range m {
+  	}
+  }
+
+Execute (fix):
+  call setqflist([{'lnum': 4, 'bufnr': 1, 'col': 9, 'valid': 1 , 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'should omit 2nd value from range; this loop is equivalent to `for x := range ...`'}])
+  4
+  GoLintFix
+
+Expect go (after fix):
+  package foo
+  func name() {
+  	var m map[string]int
+  	for x := range m {
+  	}
+  }
+
+Given go (x, /*fafa*/_ /*fadfa*/  := range):
+  package foo
+  func name() {
+  	var m map[string]int
+  	for x, /*fafa*/_ /*fadfa*/  := range m {
+  	}
+  }
+
+Execute (fix):
+  call setqflist([{'lnum': 4, 'bufnr': 1, 'col': 9, 'valid': 1 , 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'should omit 2nd value from range; this loop is equivalent to `for x := range ...`'}])
+  4
+  GoLintFix
+
+Expect go (after fix):
+  package foo
+  func name() {
+  	var m map[string]int
+  	for x := range m {
+  	}
+  }
+
+Given go (x, _ = range):
+  package foo
+  func name() {
+  	var m map[string]int
+  	x := ""
+  	for x, _ = range m {
+  	}
+  }
+
+Execute (fix):
+  call setqflist([{'lnum': 5, 'bufnr': 1, 'col': 9, 'valid': 1 , 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'should omit 2nd value from range; this loop is equivalent to `for x = range ...`'}])
+  5
+  GoLintFix
+
+Expect go (after fix):
+  package foo
+  func name() {
+  	var m map[string]int
+  	x := ""
+  	for x = range m {
+  	}
+  }
+
+Given go (x, /*fafa*/_ = range):
+  package foo
+  func name() {
+  	var m map[string]int
+  	x := ""
+  	for x, /*fafa*/_ = range m {
+  	}
+  }
+
+Execute (fix):
+  call setqflist([{'lnum': 5, 'bufnr': 1, 'col': 9, 'valid': 1 , 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'should omit 2nd value from range; this loop is equivalent to `for x = range ...`'}])
+  5
+  GoLintFix
+
+Expect go (after fix):
+  package foo
+  func name() {
+  	var m map[string]int
+  	x := ""
+  	for x = range m {
+  	}
+  }
+
+Given go (x, /*fafa*/_ /*fadfa*/  = range):
+  package foo
+  func name() {
+  	var m map[string]int
+  	x := ""
+  	for x, /*fafa*/_ /*fadfa*/  = range m {
+  	}
+  }
+
+Execute (fix):
+  call setqflist([{'lnum': 5, 'bufnr': 1, 'col': 9, 'valid': 1 , 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'should omit 2nd value from range; this loop is equivalent to `for x = range ...`'}])
+  5
+  GoLintFix
+
+Expect go (after fix):
+  package foo
+  func name() {
+  	var m map[string]int
+  	x := ""
+  	for x = range m {
+  	}
+  }

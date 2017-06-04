@@ -1,0 +1,33 @@
+Before:
+  let g:golint_fixer_use_go_rename = 0
+
+Given go (type):
+  package foo
+  type FooBar struct {}
+
+Execute:
+  call setqflist([{'lnum': 2, 'bufnr': 1, 'col': 6, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'type name will be used as foo.FooBar by other packages, and that stutters; consider calling this Bar'}])
+  2
+  GoLintFix
+
+Expect go:
+  package foo
+  type Bar struct {}
+
+Given go (func):
+  package foo
+  func FooBar() {}
+
+Execute:
+  call setqflist([{'lnum': 2, 'bufnr': 1, 'col': 6, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'func name will be used as foo.FooBar by other packages, and that stutters; consider calling this Bar'}])
+  2
+  GoLintFix
+
+Expect go:
+  package foo
+  func Bar() {}
+

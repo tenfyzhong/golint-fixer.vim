@@ -1,0 +1,167 @@
+Given go (this foo):
+  package foo
+  type foo struct {}
+  func (this foo) name() {
+    fmt.Printf("%v", this)
+  }
+
+Execute:
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'receiver name should be a reflection of its identity; don''t use generic names such as "this" or "self"'}])
+  3
+  GoLintFix
+
+Expect go:
+  package foo
+  type foo struct {}
+  func (f foo) name() {
+    fmt.Printf("%v", f)
+  }
+
+Given go (this /*f*/foo):
+  package foo
+  type foo struct {}
+  func (this /*f*/foo) name() {
+    fmt.Printf("%v", this)
+  }
+
+Execute:
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'receiver name should be a reflection of its identity; don''t use generic names such as "this" or "self"'}])
+  3
+  GoLintFix
+
+Expect go:
+  package foo
+  type foo struct {}
+  func (f /*f*/foo) name() {
+    fmt.Printf("%v", f)
+  }
+
+Given go (this *foo):
+  package foo
+  type foo struct {}
+  func (this *foo) name() {
+    fmt.Printf("%v", this)
+  }
+
+Execute:
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'receiver name should be a reflection of its identity; don''t use generic names such as "this" or "self"'}])
+  3
+  GoLintFix
+
+Expect go:
+  package foo
+  type foo struct {}
+  func (f *foo) name() {
+    fmt.Printf("%v", f)
+  }
+
+Given go (this /*f*/foo):
+  package foo
+  type foo struct {}
+  func (this /*f*/*foo) name() {
+    fmt.Printf("%v", this)
+  }
+
+Execute:
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'receiver name should be a reflection of its identity; don''t use generic names such as "this" or "self"'}])
+  3
+  GoLintFix
+
+Expect go:
+  package foo
+  type foo struct {}
+  func (f /*f*/*foo) name() {
+    fmt.Printf("%v", f)
+  }
+
+Given go (self foo):
+  package foo
+  type foo struct {}
+  func (self foo) name() {
+    fmt.Printf("%v", self)
+  }
+
+Execute:
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'receiver name should be a reflection of its identity; don''t use generic names such as "this" or "self"'}])
+  3
+  GoLintFix
+
+Expect go:
+  package foo
+  type foo struct {}
+  func (f foo) name() {
+    fmt.Printf("%v", f)
+  }
+
+Given go (self /*f*/foo):
+  package foo
+  type foo struct {}
+  func (self /*f*/foo) name() {
+    fmt.Printf("%v", self)
+  }
+
+Execute:
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'receiver name should be a reflection of its identity; don''t use generic names such as "this" or "self"'}])
+  3
+  GoLintFix
+
+Expect go:
+  package foo
+  type foo struct {}
+  func (f /*f*/foo) name() {
+    fmt.Printf("%v", f)
+  }
+
+Given go (self *foo):
+  package foo
+  type foo struct {}
+  func (self *foo) name() {
+    fmt.Printf("%v", self)
+  }
+
+Execute:
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'receiver name should be a reflection of its identity; don''t use generic names such as "this" or "self"'}])
+  3
+  GoLintFix
+
+Expect go:
+  package foo
+  type foo struct {}
+  func (f *foo) name() {
+    fmt.Printf("%v", f)
+  }
+
+Given go (self /*f*/foo):
+  package foo
+  type foo struct {}
+  func (self /*f*/*foo) name() {
+    fmt.Printf("%v", self)
+  }
+
+Execute:
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'receiver name should be a reflection of its identity; don''t use generic names such as "this" or "self"'}])
+  3
+  GoLintFix
+
+Expect go:
+  package foo
+  type foo struct {}
+  func (f /*f*/*foo) name() {
+    fmt.Printf("%v", f)
+  }
