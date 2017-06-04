@@ -395,6 +395,11 @@ function! golint#fixer#should_omit_type_from_declaration(pattern, item, matchlis
     exec 's/\m'.type.'\s*//'
 endfunction "}}}
 
+" no match any pattern
+function! golint#fixer#default(pattern, item, matchlist) "{{{
+    echom 'I don''t now how to process it.'
+endfunction "}}}
+
 function! s:scope_rename(old_name, new_name, begin_lnum, end_lnum) "{{{
     let lnum = a:begin_lnum
     while lnum < a:end_lnum
