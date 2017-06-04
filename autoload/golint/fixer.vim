@@ -10,6 +10,7 @@
 " handle warning: export type or method
 " 'exported type xxx should have comment or be unexported'
 " 'exported method xxx.xxx should have comment or be unexported'
+" Exported const Whatsit should have comment (or a comment on this block) or be unexported
 function! golint#fixer#exported_should_have_comment(pattern, item, matchlist) "{{{ 
     let lnum = a:item['lnum']
     let identifier = a:matchlist[1]

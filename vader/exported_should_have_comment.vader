@@ -71,3 +71,16 @@ Expect go (after fix):
   
   }
 
+Given go (const block):
+  package foo
+  const (
+  	A = 1
+  )
+
+Execute:
+  call setqflist([{'lnum': 3, 'bufnr': 49, 'col': 2, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'exported const A should have comment (or a comment on this block) or be unexported'}])
+  3
+  GoLintFix
+  stopinsert

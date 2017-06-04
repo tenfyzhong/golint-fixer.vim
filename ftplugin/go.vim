@@ -9,7 +9,7 @@
 
 
 let s:match_function = [
-            \ {'pattern': '\m^exported \w\+ \%(\w\+\.\)\?\(\w\+\) should have comment or be unexported$', 'func': function('golint#fixer#exported_should_have_comment')},
+            \ {'pattern': '\m^exported \w\+ \%(\w\+\.\)\?\(\w\+\) should have comment \%((or a comment on this block) \)\?or be unexported$', 'func': function('golint#fixer#exported_should_have_comment')},
             \ {'pattern': '\m^package comment should not have leading space$', 'func': function('golint#fixer#not_leading_space')},
             \ {'pattern': '\m^package comment should be of the form "\(Package \w\+\) \.\.\."$', 'func': function('golint#fixer#comment_should_be_of_the_form')},
             \ {'pattern': '\m^a blank import should be only in a main or test package, or have a comment justifying it$', 'func': function('golint#fixer#blank_import_add_comment')},
