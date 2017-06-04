@@ -15,7 +15,7 @@ function! golint#fixer#exported_should_have_comment(pattern, item, matchlist) "{
     let identifier = a:matchlist[1]
     let tabs = indent(lnum) / &tabstop
     let content = repeat("\t", tabs)
-    let content .= '// ' . identifier 
+    let content .= '// ' . identifier . ' '
     call append(lnum-1, content)
     call cursor(lnum, 1)
     startinsert!
