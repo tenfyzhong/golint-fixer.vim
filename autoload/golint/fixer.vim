@@ -106,12 +106,7 @@ function! golint#fixer#convert_all_caps_to_camelcase(pattern, item, matchlist) "
         return 
     endif
     let new_word = <SID>camelcase(under_word)
-    if <SID>use_go_rename()
-        call cursor(lnum, a:item['col'])
-        exec 'GoRename ' . new_word
-    else
-        exec 's/\m\c'.under_word.'/'.new_word.'/g'
-    endif
+    call <SID>rename(lnum, a:item['col'], under_word, new_word)
 endfunction "}}}
 
 " handle warning: 
@@ -123,12 +118,9 @@ function! golint#fixer#go_name_should_be(pattern, item, matchlist) "{{{
     endif
     let old_name = a:matchlist[1]
     let new_name = a:matchlist[2]
-    if <SID>use_go_rename()
-        call cursor(a:item['lnum'], a:item['col'])
-        exec 'GoRename ' . new_name
-    else
-        exec 's/\<'.old_name.'\>/'.new_name.'/g'
-    endif
+    let lnum = a:item['lnum']
+    let col = a:item['lnum']
+    call <SID>rename(lnum, col, old_name, new_name)
 endfunction "}}}
 
 " handle warning: exported xxx xxx should have its own declaration
@@ -297,8 +289,12 @@ endfunction "}}}
 
 " handle warning: error var xxx should have name of the form errFoo
 function! golint#fixer#error_var_should_have_name_of_the_form(pattern, item, matchlist) "{{{
-    let prefix = a:matchlist[1] =~# '^\u' ? 'Err' : 'err'
-    exec 's/\m\<'.a:matchlist[1].'\>/'.prefix.'\u'.a:matchlist[1].'/g'
+    let old_name = a:matchlist[1]
+    let prefix = old_name =~# '^\u' ? 'Err' : 'err'
+    let new_name = substitute(old_name, '.*', prefix.'\u&', '')
+    let lnum = a:item['lnum']
+    let col = a:item['col']
+    call <sid>rename(lnum, col, old_name, new_name)
 endfunction "}}}
 
 " hanle warning: error strings should not be capitalized or end with punctuation or a newline
@@ -371,35 +367,15 @@ endfunction "}}}
 function! golint#fixer#name_stutters_consider_calling(pattern, item, matchlist) "{{{
     let old_name = a:matchlist[1]
     let new_name = a:matchlist[2]
-    let renamed = 0
-    if <SID>use_go_rename()
-        call search(old_name)
-        try
-            call 'GoRename ' . new_name
-            let renamed = 1
-        catch
-            let renamed = 0
-        endtry
-    endif
-    if !renamed
-        exec 's/\<'.old_name.'\>/'.new_name
-    endif
+    call <SID>rename(a:item['lnum'], a:item['col'], old_name, new_name)
 endfunction "}}}
 
 " handle warning: var %s is of type %v; don't use unit-specific suffix %q
 function! golint#fixer#time_dont_use_unit_specific_suffix(pattern, item, matchlist) "{{{
-    let renamed = 0
     let old_name = a:matchlist[1]
     let suffix = a:matchlist[2]
     let new_name = substitute(old_name, '\(.*\)'.suffix, '\1', '')
-    if <SID>use_go_rename()
-        call search(old_name)
-        exec 'GoRename ' . new_name
-    endif
-    let content = getline('.')
-    if match(content, old_name)
-        exec 's/\m\<'.old_name.'\>/'.new_name
-    endif
+    call <SID>rename(a:item['lnum'], a:item['col'], old_name, new_name)
 endfunction "}}}
 
 " handle warning: should omit type %s from declaration of var %s; it will be inferred from the right-hand side
@@ -440,5 +416,17 @@ endfunction "}}}
 
 function! s:use_go_rename() "{{{
     return get(g:, 'golint_fixer_use_go_rename', 1) && exists(':GoRename')
+endfunction "}}}
+
+function! s:rename(lnum, col, old_name, new_name) "{{{
+    if <SID>use_go_rename()
+        call cursor(a:lnum, a:col)
+        exec 'GoRename ' . a:new_name
+    endif
+    if getline(a:lnum) =~# '\<'.a:old_name.'\>'
+        exec 's/\m\<'.a:old_name.'\>/'.a:new_name.'/g'
+        return 0
+    endif
+    return 1
 endfunction "}}}
 

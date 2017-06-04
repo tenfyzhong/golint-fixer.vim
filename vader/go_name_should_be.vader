@@ -1,6 +1,3 @@
-Before:
-  let g:golint_fixer_use_go_rename = 0
-
 Given go (trim k):
   package test
   
