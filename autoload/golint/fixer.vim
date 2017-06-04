@@ -317,6 +317,29 @@ function! golint#fixer#omit_2nd_value_from_range(pattern, item, matchlist) "{{{
     s/,\s*\%(\/\*.*\*\/\)\?\s*_\s*\%(\/\*.*\*\/\)\?\s*/ /
 endfunction "}}}"
 
+" handle waring: 
+" receiver name should be a reflection of its identity; don't use generic names such as "this" or "self"
+function! golint#fixer#receive_name_should_not_be_this_or_self(pattern, item, matchlist) "{{{
+    let lnum = a:item['lnum']
+    let content = getline(lnum)
+    " func /*.*/ ( /*.*/ this *bar )()
+    let list = matchlist(content, '\mfunc\s*\%(\/\*.*\*\/\)\?\s*(\s*\%(\/\*.*\*\/\)\?\s*\(\<this\>\|\<self\>\)\s*\%(\/\*.*\*\/\)\?\s*\*\?\s*\%(\/\*.*\*\/\)\?\s*\(\w\)\w*)')
+    let generic_name = list[1]
+    let new_name = list[2]
+    call search('{')
+    normal %
+    let function_last_lnum = line('.')
+    while lnum < function_last_lnum
+        call cursor(lnum, 1)
+        let f = search(generic_name, '', function_last_lnum)
+        if f == 0
+            break
+        endif
+        exec 's/\<'.generic_name.'\>/'.new_name.'/g'
+        let lnum = line('.') + 1
+    endwhile
+endfunction "}}}
+
 function! s:camelcase(word) "{{{ under_word to camelcase
     let new_word = substitute(a:word,'\C\(_\)\=\(.\)','\=submatch(1)==""?tolower(submatch(2)) : toupper(submatch(2))','g')
     let new_word = substitute(new_word, '\m_\+$', '', 'g')
