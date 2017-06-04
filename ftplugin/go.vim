@@ -64,6 +64,8 @@ function! s:fix() "{{{
     endif
 endfunction "}}}
 
-nnoremap <leader>lf :GoLintFix<cr>
+if get(g:, 'golint_fixer_use_default_mapping', 1)
+    nnoremap <leader>lf :GoLintFix<cr>
+endif
 
 command! -nargs=0 GoLintFix call <SID>fix()
