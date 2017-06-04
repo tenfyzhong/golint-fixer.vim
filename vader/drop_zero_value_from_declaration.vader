@@ -1,29 +1,132 @@
 Given go (var haha int =    0):
   package test
-
   var haha int = 0
 
 Execute (fix):
-  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 16, 'valid': 1, 'vcol': 0, 'nr': -1, 'type': 'W', 'pattern': '', 'text': 'should drop = 0 from declaration of var haha; it is the zero value'}])
-  3
+  call setqflist([{'lnum': 2, 'bufnr': 1, 'col': 16, 'valid': 1, 'vcol': 0, 'nr': -1, 'type': 'W', 'pattern': '', 'text': 'should drop = 0 from declaration of var haha; it is the zero value'}])
+  2
   GoLintFix
 
 Expect go (after fix):
   package test
-  
   var haha int
 
 Given go (var haha string = ""):
   package test
-
   var haha string = ""
 
 Execute (fix):
-  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 16, 'valid': 1, 'vcol': 0, 'nr': -1, 'type': 'W', 'pattern': '', 'text': 'should drop = "" from declaration of var haha; it is the zero value'}])
+  call setqflist([{'lnum': 2, 'bufnr': 1, 'col': 16, 'valid': 1, 'vcol': 0, 'nr': -1, 'type': 'W', 'pattern': '', 'text': 'should drop = "" from declaration of var haha; it is the zero value'}])
+  2
+  GoLintFix
+
+Expect go (after fix):
+  package test
+  var haha string
+
+Given go (var haha string = ``):
+  package test
+  var haha string = ``
+
+Execute (fix):
+  call setqflist([{'lnum': 2, 'bufnr': 1, 'col': 16, 'valid': 1, 'vcol': 0, 'nr': -1, 'type': 'W', 'pattern': '', 'text': 'should drop = `` from declaration of var haha; it is the zero value'}])
+  2
+  GoLintFix
+
+Expect go (after fix):
+  package test
+  var haha string
+
+Given go (var haha int = /*fa*/   0):
+  package test
+  var haha int = /*fa*/  0
+
+Execute (fix):
+  call setqflist([{'lnum': 2, 'bufnr': 1, 'col': 16, 'valid': 1, 'vcol': 0, 'nr': -1, 'type': 'W', 'pattern': '', 'text': 'should drop = 0 from declaration of var haha; it is the zero value'}])
+  2
+  GoLintFix
+
+Expect go (after fix):
+  package test
+  var haha int/*fa*/
+
+Given go (var haha float32  = 0.):
+  package test
+  var haha float32 = 0.
+
+Execute (fix):
+  call setqflist([{'lnum': 2, 'bufnr': 1, 'col': 16, 'valid': 1, 'vcol': 0, 'nr': -1, 'type': 'W', 'pattern': '', 'text': 'should drop = 0. from declaration of var haha; it is the zero value'}])
+  2
+  GoLintFix
+
+Expect go (after fix):
+  package test
+  var haha float32
+
+Given go (var haha float64  = 0.0):
+  package test
+  var haha float64 = 0.0
+
+Execute (fix):
+  call setqflist([{'lnum': 2, 'bufnr': 1, 'col': 16, 'valid': 1, 'vcol': 0, 'nr': -1, 'type': 'W', 'pattern': '', 'text': 'should drop = 0.0 from declaration of var haha; it is the zero value'}])
+  2
+  GoLintFix
+
+Expect go (after fix):
+  package test
+  var haha float64
+
+Given go (var haha complex64  = 0i):
+  package test
+  var haha complex64 = 0i
+
+Execute (fix):
+  call setqflist([{'lnum': 2, 'bufnr': 1, 'col': 16, 'valid': 1, 'vcol': 0, 'nr': -1, 'type': 'W', 'pattern': '', 'text': 'should drop = 0i from declaration of var haha; it is the zero value'}])
+  2
+  GoLintFix
+
+Expect go (after fix):
+  package test
+  var haha complex64
+
+Given go (var haha *Q):
+  package test
+  type Q bool
+  var haha *Q = nil
+
+Execute (fix):
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 16, 'valid': 1, 'vcol': 0, 'nr': -1, 'type': 'W', 'pattern': '', 'text': 'should drop = nil from declaration of var haha; it is the zero value'}])
   3
   GoLintFix
 
 Expect go (after fix):
   package test
-  
-  var haha string
+  type Q bool
+  var haha *Q
+
+Given go (var haha rune = '\x00'):
+  package test
+  var haha rune = '\x00'
+
+Execute (fix):
+  call setqflist([{'lnum': 2, 'bufnr': 1, 'col': 16, 'valid': 1, 'vcol': 0, 'nr': -1, 'type': 'W', 'pattern': '', 'text': 'should drop = ''\x00'' from declaration of var haha; it is the zero value'}])
+  2
+  GoLintFix
+
+Expect go (after fix):
+  package test
+  var haha rune
+
+Given go (var haha rune = '\x000'):
+  package test
+  var haha rune = '\x000'
+
+Execute (fix):
+  call setqflist([{'lnum': 2, 'bufnr': 1, 'col': 16, 'valid': 1, 'vcol': 0, 'nr': -1, 'type': 'W', 'pattern': '', 'text': 'should drop = ''\x000'' from declaration of var haha; it is the zero value'}])
+  2
+  GoLintFix
+
+Expect go (after fix):
+  package test
+  var haha rune
+

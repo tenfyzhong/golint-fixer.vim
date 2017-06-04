@@ -185,7 +185,10 @@ endfunction "}}}
 
 " handle warning: Should drop = 0 from declaration of var xxx; it is the zero value
 function! golint#fixer#drop_zero_value_from_declaration(pattern, item, matchlist) "{{{
-    s/\s*=\s*\%(0\|""\)//
+    " s/\s*=\s*\%(0\|""\)//
+    let drop = a:matchlist[1]
+    let drop = substitute(drop, '\\', '\\\\', 'g')
+    exec 's/\s*=\s*\(\/\*.*\*\/\)\?\s*'.drop.'/\1'
 endfunction "}}}
 
 " handle warning: if block ends with a return statement, so drop this else and outdent its block
