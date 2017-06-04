@@ -329,13 +329,30 @@ function! golint#fixer#receive_name_should_not_be_this_or_self(pattern, item, ma
     call search('{')
     normal %
     let function_last_lnum = line('.')
-    while lnum < function_last_lnum
+    call <SID>scope_rename(generic_name, new_name, lnum, function_last_lnum)
+endfunction "}}}
+
+" handle warning: receiver name %s should be consistent with previous receiver name %s for %s
+" pattern: '\m^receiver name \(.*\) should be consistent with previous receiver name \(.*\) for .*$'
+function! golint#fixer#receive_name_should_be_consistent_with_previous_receive_name(pattern, item, matchlist) "{{{
+    let lnum = a:item['lnum']
+    let old_name = a:matchlist[1]
+    let new_name = a:matchlist[2]
+    call search('{')
+    normal %
+    let function_last_lnum = line('.')
+    call <SID>scope_rename(old_name, new_name, lnum, function_last_lnum)
+endfunction "}}}
+
+function! s:scope_rename(old_name, new_name, begin_lnum, end_lnum) "{{{
+    let lnum = a:begin_lnum
+    while lnum < a:end_lnum
         call cursor(lnum, 1)
-        let f = search(generic_name, '', function_last_lnum)
+        let f = search(a:old_name, '', a:end_lnum)
         if f == 0
             break
         endif
-        exec 's/\<'.generic_name.'\>/'.new_name.'/g'
+        exec 's/\<'.a:old_name.'\>/'.a:new_name.'/g'
         let lnum = line('.') + 1
     endwhile
 endfunction "}}}

@@ -31,6 +31,7 @@ let s:match_function = [
             \ {'pattern': '^package comment is detached; there should be no blank lines between it and the package statement$', 'func': function('golint#fixer#should_be_no_blank_lines')}, 
             \ {'pattern': '\m^should omit 2nd value from range; this loop is equivalent to `for .\+ :\?= range \.\.\.`$', 'func': function('golint#fixer#omit_2nd_value_from_range')}, 
             \ {'pattern': '^receiver name should be a reflection of its identity; don''t use generic names such as "this" or "self"$', 'func': function('golint#fixer#receive_name_should_not_be_this_or_self')}, 
+            \ {'pattern': '\m^receiver name \(.*\) should be consistent with previous receiver name \(.*\) for .*$', 'func': function('golint#fixer#receive_name_should_be_consistent_with_previous_receive_name')}, 
             \]
 
 function! s:Fix() "{{{
