@@ -1,7 +1,7 @@
-Given go (//Haha):
+Given go (// Haha):
   package test
   
-  //Haha
+  // Haha
   type Haha struct {
   
   }
@@ -17,7 +17,7 @@ Execute (fix):
 Expect go (after fix):
   package test
   
-  //Haha 
+  // Haha 
   type Haha struct {
   
   }
@@ -41,15 +41,15 @@ Execute (fix):
 Expect go (after fix):
   package test
   
-  //Haha 
+  // Haha 
   type Haha struct {
   
   }
 
-Given go (//haha    ):
+Given go (// haha    ):
   package test
   
-  //Haha
+  // Haha
   type Haha struct {
   
   }
@@ -65,15 +65,15 @@ Execute (fix):
 Expect go (after fix):
   package test
   
-  //Haha 
+  // Haha 
   type Haha struct {
   
   }
 
-Given go (/*haha  ):
+Given go (/* haha  ):
   package test
   
-  /*haha  
+  /* haha  
   */
   type Haha struct {
   
@@ -90,16 +90,16 @@ Execute (fix):
 Expect go (after fix):
   package test
   
-  /*Haha 
+  /* Haha 
   */
   type Haha struct {
   
   }
 
-Given go (/*haha*/):
+Given go (/* haha*/):
   package test
   
-  /*haha*/
+  /* haha*/
   type Haha struct {
   
   }
@@ -115,39 +115,15 @@ Execute (fix):
 Expect go (after fix):
   package test
   
-  /*Haha */
+  /* Haha */
   type Haha struct {
   
   }
 
-Given go (/*haha xxx*/):
+Given go (/* haha xxx*/):
   package test
   
-  /*haha xxx*/
-  type Haha struct {
-  
-  }
-
-Execute (fix):
-  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
-    \'nr': -1, 'type': 'W', 'pattern': '', 
-    \'text': 'comment on exported type Haha should be of the form "Haha ..." (with optional leading article)'}])
-  3
-  GoLintFix
-  stopinsert
-
-Expect go (after fix):
-  package test
-  
-  /*Haha xxx*/
-  type Haha struct {
-  
-  }
-
-Given go (//haha    xxx):
-  package test
-  
-  //haha    xxx
+  /* haha xxx*/
   type Haha struct {
   
   }
@@ -163,15 +139,15 @@ Execute (fix):
 Expect go (after fix):
   package test
   
-  //Haha xxx
+  /* Haha xxx*/
   type Haha struct {
   
   }
 
-Given go (//xxx):
+Given go (// haha    xxx):
   package test
   
-  //xxx
+  // haha    xxx
   type Haha struct {
   
   }
@@ -187,7 +163,31 @@ Execute (fix):
 Expect go (after fix):
   package test
   
-  //Haha xxx
+  // Haha xxx
+  type Haha struct {
+  
+  }
+
+Given go (// xxx):
+  package test
+  
+  // xxx
+  type Haha struct {
+  
+  }
+
+Execute (fix):
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'comment on exported type Haha should be of the form "Haha ..." (with optional leading article)'}])
+  3
+  GoLintFix
+  stopinsert
+
+Expect go (after fix):
+  package test
+  
+  // Haha xxx
   type Haha struct {
   
   }
@@ -211,15 +211,15 @@ Execute (fix):
 Expect go (after fix):
   package test
   
-  //Haha 
+  // Haha 
   type Haha struct {
   
   }
 
-Given go (/*xxx):
+Given go (/* xxx):
   package test
   
-  /*xxx
+  /* xxx
    */
   type Haha struct {
   
@@ -236,16 +236,16 @@ Execute (fix):
 Expect go (after fix):
   package test
   
-  /*Haha xxx
+  /* Haha xxx
    */
   type Haha struct {
   
   }
 
-Given go (/*xxx*/):
+Given go (/* xxx*/):
   package test
   
-  /*xxx*/
+  /* xxx*/
   type Haha struct {
   
   }
@@ -261,7 +261,7 @@ Execute (fix):
 Expect go (after fix):
   package test
   
-  /*Haha xxx*/
+  /* Haha xxx*/
   type Haha struct {
   
   }

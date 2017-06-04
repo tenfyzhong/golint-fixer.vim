@@ -1,5 +1,5 @@
-Given go (//Package packagename):
-  //Package test
+Given go (// Package packagename):
+  // Package test
   package test
 
 Execute (lint):
@@ -9,25 +9,11 @@ Execute (lint):
   stopinsert
 
 Expect go (after fix):
-  //Package test 
+  // Package test 
   package test
 
-Given go (//Package packagename    ):
-  //Package test    
-  package test
-
-Execute (lint):
-  call setqflist([{'lnum': 1, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
-    \'nr': -1, 'type': 'W', 'pattern': '', 'text': 'package comment should be of the form "Package test ..."'}])
-  GoLintFix
-  stopinsert
-
-Expect go (after fix):
-  //Package test 
-  package test
-
-Given go (//package packagename    ):
-  //package test    
+Given go (// Package packagename    ):
+  // Package test    
   package test
 
 Execute (lint):
@@ -37,11 +23,25 @@ Execute (lint):
   stopinsert
 
 Expect go (after fix):
-  //Package test 
+  // Package test 
   package test
 
-Given go (/*package packagename  ):
-  /*package test  
+Given go (// package packagename    ):
+  // package test    
+  package test
+
+Execute (lint):
+  call setqflist([{'lnum': 1, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 'text': 'package comment should be of the form "Package test ..."'}])
+  GoLintFix
+  stopinsert
+
+Expect go (after fix):
+  // Package test 
+  package test
+
+Given go (/* package packagename  ):
+  /* package test  
   */
   package test
 
@@ -52,12 +52,12 @@ Execute (lint):
   stopinsert
 
 Expect go (after fix):
-  /*Package test 
+  /* Package test 
   */
   package test
 
-Given go (/*package packagename*/):
-  /*package test*/
+Given go (/* package packagename*/):
+  /* package test*/
   package test
 
 Execute (lint):
@@ -67,25 +67,11 @@ Execute (lint):
   stopinsert
 
 Expect go (after fix):
-  /*Package test */
+  /* Package test */
   package test
 
-Given go (/*package packagename xxx*/):
-  /*package test xxx*/
-  package test
-
-Execute (lint):
-  call setqflist([{'lnum': 1, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
-    \'nr': -1, 'type': 'W', 'pattern': '', 'text': 'package comment should be of the form "Package test ..."'}])
-  GoLintFix
-  stopinsert
-
-Expect go (after fix):
-  /*Package test xxx*/
-  package test
-
-Given go (//package packagename    xxx):
-  //package test    xxx
+Given go (/* package packagename xxx*/):
+  /* package test xxx*/
   package test
 
 Execute (lint):
@@ -95,26 +81,11 @@ Execute (lint):
   stopinsert
 
 Expect go (after fix):
-  //Package test xxx
+  /* Package test xxx*/
   package test
 
-Given go (//package):
-  //package
-  package test
-
-Execute (lint):
-  call setqflist([{'lnum': 1, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
-    \'nr': -1, 'type': 'W', 'pattern': '', 'text': 'package comment should be of the form "Package test ..."'}])
-  GoLintFix
-  stopinsert
-
-Expect go (after fix):
-  //Package test 
-  package test
-
-Given go (/*package):
-  /*package
-  */
+Given go (// package packagename    xxx):
+  // package test    xxx
   package test
 
 Execute (lint):
@@ -124,12 +95,25 @@ Execute (lint):
   stopinsert
 
 Expect go (after fix):
-  /*Package test 
-  */
+  // Package test xxx
   package test
 
-Given go (/*package*/):
-  /*Package
+Given go (// package):
+  // package
+  package test
+
+Execute (lint):
+  call setqflist([{'lnum': 1, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 'text': 'package comment should be of the form "Package test ..."'}])
+  GoLintFix
+  stopinsert
+
+Expect go (after fix):
+  // Package test 
+  package test
+
+Given go (/* package):
+  /* package
   */
   package test
 
@@ -140,40 +124,12 @@ Execute (lint):
   stopinsert
 
 Expect go (after fix):
-  /*Package test 
+  /* Package test 
   */
   package test
 
-Given go (//test):
-  //test
-  package test
-
-Execute (lint):
-  call setqflist([{'lnum': 1, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
-    \'nr': -1, 'type': 'W', 'pattern': '', 'text': 'package comment should be of the form "Package test ..."'}])
-  GoLintFix
-  stopinsert
-
-Expect go (after fix):
-  //Package test 
-  package test
-
-Given go (//test xxx):
-  //test xxx
-  package test
-
-Execute (lint):
-  call setqflist([{'lnum': 1, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
-    \'nr': -1, 'type': 'W', 'pattern': '', 'text': 'package comment should be of the form "Package test ..."'}])
-  GoLintFix
-  stopinsert
-
-Expect go (after fix):
-  //Package test xxx
-  package test
-
-Given go (/*test):
-  /*test
+Given go (/* package*/):
+  /* Package
   */
   package test
 
@@ -184,12 +140,40 @@ Execute (lint):
   stopinsert
 
 Expect go (after fix):
-  /*Package test 
+  /* Package test 
   */
   package test
 
-Given go (/*test xxx):
-  /*test xxx
+Given go (// test):
+  // test
+  package test
+
+Execute (lint):
+  call setqflist([{'lnum': 1, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 'text': 'package comment should be of the form "Package test ..."'}])
+  GoLintFix
+  stopinsert
+
+Expect go (after fix):
+  // Package test 
+  package test
+
+Given go (// test xxx):
+  // test xxx
+  package test
+
+Execute (lint):
+  call setqflist([{'lnum': 1, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 'text': 'package comment should be of the form "Package test ..."'}])
+  GoLintFix
+  stopinsert
+
+Expect go (after fix):
+  // Package test xxx
+  package test
+
+Given go (/* test):
+  /* test
   */
   package test
 
@@ -200,12 +184,13 @@ Execute (lint):
   stopinsert
 
 Expect go (after fix):
-  /*Package test xxx
+  /* Package test 
   */
   package test
 
-Given go (/*test*/):
-  /*test*/
+Given go (/* test xxx):
+  /* test xxx
+  */
   package test
 
 Execute (lint):
@@ -215,25 +200,12 @@ Execute (lint):
   stopinsert
 
 Expect go (after fix):
-  /*Package test */
+  /* Package test xxx
+  */
   package test
 
-Given go (/*test xxx*/):
-  /*test xxx*/
-  package test
-
-Execute (lint):
-  call setqflist([{'lnum': 1, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
-    \'nr': -1, 'type': 'W', 'pattern': '', 'text': 'package comment should be of the form "Package test ..."'}])
-  GoLintFix
-  stopinsert
-
-Expect go (after fix):
-  /*Package test xxx*/
-  package test
-
-Given go (//xxx):
-  //xxx
+Given go (/* test*/):
+  /* test*/
   package test
 
 Execute (lint):
@@ -243,7 +215,35 @@ Execute (lint):
   stopinsert
 
 Expect go (after fix):
-  //Package test xxx
+  /* Package test */
+  package test
+
+Given go (/* test xxx*/):
+  /* test xxx*/
+  package test
+
+Execute (lint):
+  call setqflist([{'lnum': 1, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 'text': 'package comment should be of the form "Package test ..."'}])
+  GoLintFix
+  stopinsert
+
+Expect go (after fix):
+  /* Package test xxx*/
+  package test
+
+Given go (// xxx):
+  // xxx
+  package test
+
+Execute (lint):
+  call setqflist([{'lnum': 1, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 'text': 'package comment should be of the form "Package test ..."'}])
+  GoLintFix
+  stopinsert
+
+Expect go (after fix):
+  // Package test xxx
   package test
 
 Given go (//):
@@ -257,11 +257,11 @@ Execute (lint):
   stopinsert
 
 Expect go (after fix):
-  //Package test 
+  // Package test 
   package test
 
-Given go (/*xxx):
-  /*xxx
+Given go (/* xxx):
+  /* xxx
    */
   package test
 
@@ -272,12 +272,12 @@ Execute (lint):
   stopinsert
 
 Expect go (after fix):
-  /*Package test xxx
+  /* Package test xxx
    */
   package test
 
-Given go (/*xxx*/):
-  /*xxx*/
+Given go (/* xxx*/):
+  /* xxx*/
   package test
 
 Execute (lint):
@@ -287,6 +287,6 @@ Execute (lint):
   stopinsert
 
 Expect go (after fix):
-  /*Package test xxx*/
+  /* Package test xxx*/
   package test
 

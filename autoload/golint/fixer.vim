@@ -37,22 +37,22 @@ function! golint#fixer#comment_should_be_of_the_form(pattern, item, matchlist) "
     let content = getline(lnum)
     let words = split(a:matchlist[1], ' ')
     if match(content, '\m\c^\s*\/[/*]\s*' . a:matchlist[1] . '\s*\%(\*\/\)\?\s*') != -1
-        " match //Package package_name
-        " match /*Package package_name
-        " match /*Package package_name*/
-        exec 's/\m\c\s*'.a:matchlist[1].'\s*/'.a:matchlist[1].' '
+        " match //\s*Package package_name
+        " match /*\s*Package package_name
+        " match /*\s*Package package_name*/
+        exec 's/\m\c\s*'.a:matchlist[1].'\s*/ '.a:matchlist[1].' '
     elseif len(words) == 2 && match(content, '\m\c^\s*\/[/*]\s*'.words[0].'\s*\%(\*\/\)\?\s*$') != -1
-        " match //Package
-        " match /*Package
-        " match /*Package*/
-        exec 's/\m\c'.words[0].'\s*/'.a:matchlist[1].' '
+        " match //\s*Package
+        " match /*\s*Package
+        " match /*\s*Package*/
+        exec 's/\m\c\s*'.words[0].'\s*/ '.a:matchlist[1].' '
     elseif len(words) == 2 && match(content, '\m\c^\s*\/[/*]\s*'.words[1].'\s*\%(\*\/\)\?\s*') != -1
-        " match //package_name
-        " match /*package_name
-        " match /*package_name*/
-        exec 's/\m\c'.words[1].'\s*/'.a:matchlist[1].' '
-    else " match no prefix `Package` of `package_name`
-        exec 's/\m\(\/[/*]\)\s*/\1'.a:matchlist[1].' '
+        " match // package_name
+        " match /* package_name
+        " match /* package_name*/
+        exec 's/\m\c\s*'.words[1].'\s*/ '.a:matchlist[1].' '
+    else " match no prefix `Package` or `package_name`
+        exec 's/\m\(\/[/*]\)\s*/\1 '.a:matchlist[1].' '
     endif
     call cursor(lnum, 1)
     call search(a:matchlist[1].' ', 'e')
