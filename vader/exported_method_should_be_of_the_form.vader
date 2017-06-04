@@ -1,0 +1,411 @@
+Given go (// FunA):
+  package test
+
+  // Haha haha
+  type Haha struct {
+  
+  }
+  
+  // FunA 
+  func (a Haha)FunA() {
+  
+  }
+
+Execute (fix):
+  call setqflist([{'lnum': 8, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'comment on exported method Haha.FunA should be of the form "FunA ..."'}])
+  8
+  GoLintFix
+  stopinsert
+
+Expect go (after fix):
+  package test
+
+  // Haha haha
+  type Haha struct {
+  
+  }
+  
+  // FunA 
+  func (a Haha)FunA() {
+  
+  }
+
+Given go (//   FunA    ):
+  package test
+
+  // Haha haha
+  type Haha struct {
+  
+  }
+  
+  //   FunA     
+  func (a Haha)FunA() {
+  
+  }
+
+Execute (fix):
+  call setqflist([{'lnum': 8, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'comment on exported function FunA should be of the form "FunA ..."'}])
+  8
+  GoLintFix
+  stopinsert
+
+Expect go (after fix):
+  package test
+
+  // Haha haha
+  type Haha struct {
+  
+  }
+  
+  // FunA 
+  func (a Haha)FunA() {
+  
+  }
+
+Given go (// funa      ):
+  package test
+
+  // Haha haha
+  type Haha struct {
+  
+  }
+  
+  // funa      
+  func (a Haha)FunA() {
+  
+  }
+
+Execute (fix):
+  call setqflist([{'lnum': 8, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'comment on exported method Haha.FunA should be of the form "FunA ..."'}])
+  8
+  GoLintFix
+  stopinsert
+
+Expect go (after fix):
+  package test
+
+  // Haha haha
+  type Haha struct {
+  
+  }
+  
+  // FunA 
+  func (a Haha)FunA() {
+  
+  }
+
+Given go (/* FunA  ):
+  package test
+
+  // Haha haha
+  type Haha struct {
+  
+  }
+  
+  /* FunA   
+   */
+  func (a Haha)FunA() {
+  
+  }
+
+Execute (fix):
+  call setqflist([{'lnum': 8, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'comment on exported method Haha.FunA should be of the form "FunA ..."'}])
+  8
+  GoLintFix
+  stopinsert
+
+Expect go (after fix):
+  package test
+
+  // Haha haha
+  type Haha struct {
+  
+  }
+  
+  /* FunA 
+   */
+  func (a Haha)FunA() {
+  
+  }
+
+Given go (/* funa*/):
+  package test
+
+  // Haha haha
+  type Haha struct {
+  
+  }
+  
+  /* funa*/
+  func (a Haha)FunA() {
+  
+  }
+
+Execute (fix):
+  call setqflist([{'lnum': 8, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'comment on exported method Haha.FunA should be of the form "FunA ..."'}])
+  8
+  GoLintFix
+  stopinsert
+
+Expect go (after fix):
+  package test
+
+  // Haha haha
+  type Haha struct {
+  
+  }
+  
+  /* FunA */
+  func (a Haha)FunA() {
+  
+  }
+
+Given go (/* funa xxx*/):
+  package test
+
+  // Haha haha
+  type Haha struct {
+  
+  }
+  
+  /* funa xxx*/
+  func (a Haha)FunA() {
+  
+  }
+
+Execute (fix):
+  call setqflist([{'lnum': 8, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'comment on exported method Haha.FunA should be of the form "FunA ..."'}])
+  8
+  GoLintFix
+  stopinsert
+
+Expect go (after fix):
+  package test
+
+  // Haha haha
+  type Haha struct {
+  
+  }
+  
+  /* FunA xxx*/
+  func (a Haha)FunA() {
+  
+  }
+
+Given go (// funa    xxx):
+  package test
+
+  // Haha haha
+  type Haha struct {
+  
+  }
+  
+  // funa    xxx
+  func (a Haha)FunA() {
+  
+  }
+
+Execute (fix):
+  call setqflist([{'lnum': 8, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'comment on exported method Haha.FunA should be of the form "FunA ..."'}])
+  8
+  GoLintFix
+  stopinsert
+
+Expect go (after fix):
+  package test
+
+  // Haha haha
+  type Haha struct {
+  
+  }
+  
+  // FunA xxx
+  func (a Haha)FunA() {
+  
+  }
+
+Given go (// xxx):
+  package test
+
+  // Haha haha
+  type Haha struct {
+  
+  }
+  
+  // xxx 
+  func (a Haha)FunA() {
+  
+  }
+
+Execute (fix):
+  call setqflist([{'lnum': 8, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'comment on exported method Haha.FunA should be of the form "FunA ..."'}])
+  8
+  GoLintFix
+  stopinsert
+
+Expect go (after fix):
+  package test
+
+  // Haha haha
+  type Haha struct {
+  
+  }
+  
+  // FunA xxx 
+  func (a Haha)FunA() {
+  
+  }
+
+Given go (//):
+  package test
+
+  // Haha haha
+  type Haha struct {
+  
+  }
+  
+  //
+  func (a Haha)FunA() {
+  
+  }
+
+Execute (fix):
+  call setqflist([{'lnum': 8, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'comment on exported method Haha.FunA should be of the form "FunA ..."'}])
+  8
+  GoLintFix
+  stopinsert
+
+Expect go (after fix):
+  package test
+
+  // Haha haha
+  type Haha struct {
+  
+  }
+  
+  // FunA 
+  func (a Haha)FunA() {
+  
+  }
+
+Given go (/* xxx):
+  package test
+
+  // Haha haha
+  type Haha struct {
+  
+  }
+  
+  /* xxx 
+   */
+  func (a Haha)FunA() {
+  
+  }
+
+Execute (fix):
+  call setqflist([{'lnum': 8, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'comment on exported method Haha.FunA should be of the form "FunA ..."'}])
+  8
+  GoLintFix
+  stopinsert
+
+Expect go (after fix):
+  package test
+
+  // Haha haha
+  type Haha struct {
+  
+  }
+  
+  /* FunA xxx 
+   */
+  func (a Haha)FunA() {
+  
+  }
+
+Given go (/* xxx*/):
+  package test
+
+  // Haha haha
+  type Haha struct {
+  
+  }
+  
+  /* xxx*/
+  func (a Haha)FunA() {
+  
+  }
+
+Execute (fix):
+  call setqflist([{'lnum': 8, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'comment on exported method Haha.FunA should be of the form "FunA ..."'}])
+  8
+  GoLintFix
+  stopinsert
+
+Expect go (after fix):
+  package test
+
+  // Haha haha
+  type Haha struct {
+  
+  }
+  
+  /* FunA xxx*/
+  func (a Haha)FunA() {
+  
+  }
+
+Given go (/**/):
+  package test
+
+  // Haha haha
+  type Haha struct {
+  
+  }
+  
+  /**/
+  func (a Haha)FunA() {
+  
+  }
+
+Execute (fix):
+  call setqflist([{'lnum': 8, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'comment on exported method Haha.FunA should be of the form "FunA ..."'}])
+  8
+  GoLintFix
+  stopinsert
+
+Expect go (after fix):
+  package test
+
+  // Haha haha
+  type Haha struct {
+  
+  }
+  
+  /* FunA */
+  func (a Haha)FunA() {
+  
+  }

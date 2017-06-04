@@ -1,0 +1,100 @@
+Given go (a bar):
+  package foo
+  import "fmt"
+  type bar struct {}
+  func (b bar) f1() {
+  }
+  func (a bar) f2() {
+  	fmt.Printf("%v", a)
+  }
+
+Execute:
+  call setqflist([{'lnum': 6, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 'nr': -1, 'type': 'W', 'pattern': '', 'text': 'receiver name a should be consistent with previous receiver name b for bar'}])
+  6
+  GoLintFix
+
+Expect go:
+  package foo
+  import "fmt"
+  type bar struct {}
+  func (b bar) f1() {
+  }
+  func (b bar) f2() {
+  	fmt.Printf("%v", b)
+  }
+
+Given go (a /*fa*/ bar):
+  package foo
+  import "fmt"
+  type bar struct {}
+  func (b bar) f1() {
+  }
+  func (a /*fa*/ bar) f2() {
+  	fmt.Printf("%v", a)
+  }
+
+Execute:
+  call setqflist([{'lnum': 6, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 'nr': -1, 'type': 'W', 'pattern': '', 'text': 'receiver name a should be consistent with previous receiver name b for bar'}])
+  6
+  GoLintFix
+
+Expect go:
+  package foo
+  import "fmt"
+  type bar struct {}
+  func (b bar) f1() {
+  }
+  func (b /*fa*/ bar) f2() {
+  	fmt.Printf("%v", b)
+  }
+
+Given go (a *bar):
+  package foo
+  import "fmt"
+  type bar struct {}
+  func (b bar) f1() {
+  }
+  func (a *bar) f2() {
+  	fmt.Printf("%v", a)
+  }
+
+Execute:
+  call setqflist([{'lnum': 6, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 'nr': -1, 'type': 'W', 'pattern': '', 'text': 'receiver name a should be consistent with previous receiver name b for bar'}])
+  6
+  GoLintFix
+
+Expect go:
+  package foo
+  import "fmt"
+  type bar struct {}
+  func (b bar) f1() {
+  }
+  func (b *bar) f2() {
+  	fmt.Printf("%v", b)
+  }
+
+Given go (a /*fa*/ *bar):
+  package foo
+  import "fmt"
+  type bar struct {}
+  func (b bar) f1() {
+  }
+  func (a /*fa*/ *bar) f2() {
+  	fmt.Printf("%v", a)
+  }
+
+Execute:
+  call setqflist([{'lnum': 6, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 'nr': -1, 'type': 'W', 'pattern': '', 'text': 'receiver name a should be consistent with previous receiver name b for bar'}])
+  6
+  GoLintFix
+
+Expect go:
+  package foo
+  import "fmt"
+  type bar struct {}
+  func (b bar) f1() {
+  }
+  func (b /*fa*/ *bar) f2() {
+  	fmt.Printf("%v", b)
+  }
+

@@ -1,0 +1,257 @@
+Given go (trim k):
+  package test
+  
+  var kName = 0
+
+Execute (GoLintFix):
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 5, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'don''t use leading k in Go names; var kName should be name'}])
+  3
+  GoLintFix
+
+Expect go (after fix):
+  package test
+
+  var name = 0
+
+Given go (underscore):
+  package test
+  
+  var a_name = 0
+
+Execute (GoLintFix):
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 5, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'don''t use underscores in Go names; var a_name should be aName'}])
+  3
+  GoLintFix
+
+Expect go (after fix):
+  package test
+
+  var aName = 0
+
+Given go (struct field):
+  package test
+  type s struct {
+  	x_down int
+  }
+
+Execute (fix):
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 2, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'don''t use underscores in Go names; struct field x_down should be xDown'}])
+  3
+  GoLintFix
+
+Expect go (after fix):
+  package test
+  type s struct {
+  	xDown int
+  }
+
+Given go (struct field Url):
+  package test
+  import "net/url"
+  type s struct {
+  	Url *url.URL
+  }
+
+Execute (fix):
+  call setqflist([{'lnum': 4, 'bufnr': 1, 'col': 2, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'struct field Url should be URL'}])
+  4
+  GoLintFix
+
+Expect go (after fix):
+  package test
+  import "net/url"
+  type s struct {
+  	URL *url.URL
+  }
+
+Given go (const fooId):
+  package test
+  const fooId = "foo"
+
+Execute (GoLintFix):
+  call setqflist([{'lnum': 2, 'bufnr': 1, 'col': 7, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'const fooId should be fooID'}])
+  2
+  GoLintFix
+
+Expect go (after fix):
+  package test
+  const fooID = "foo"
+
+Given go (func f_it):
+  package test
+  func f_it() {
+  }
+
+Execute (GoLintFix):
+  call setqflist([{'lnum': 2, 'bufnr': 1, 'col': 6, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'don''t use underscores in Go names; func f_it should be fIt'}])
+  2
+  GoLintFix
+
+Expect go (after fix):
+  package test
+  func fIt() {
+  }
+
+Given go (more_underscore):
+  package test
+  func fIt() {
+    more_underscore := 4
+  }
+
+Execute (GoLintFix):
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 2, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'don''t use underscores in Go names; var more_underscore should be moreUnderscore'}])
+  3
+  GoLintFix
+
+Expect go (after fix):
+  package test
+  func fIt() {
+    moreUnderscore := 4
+  }
+
+Given go (isEof):
+  package test
+  import "io"
+  func fIt() {
+  	var err error
+  	if isEof := (err == io.EOF); isEof {
+  	}
+  }
+
+Execute (GoLintFix):
+  call setqflist([{'lnum': 5, 'bufnr': 1, 'col': 5, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'var isEof should be isEOF'}])
+  5
+  GoLintFix
+
+Expect go (after fix):
+  package test
+  import "io"
+  func fIt() {
+  	var err error
+  	if isEOF := (err == io.EOF); isEOF {
+  	}
+  }
+
+Given go (range var theIp):
+  package test
+  import "net"
+  func fIt() {
+  	var ips []net.IP
+  	for _, theIp := range ips {
+  	}
+  }
+
+Execute (GoLintFix):
+  call setqflist([{'lnum': 5, 'bufnr': 1, 'col': 9, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'range var theIp should be theIP'}])
+  5
+  GoLintFix
+
+Expect go (after fix):
+  package test
+  import "net"
+  func fIt() {
+  	var ips []net.IP
+  	for _, theIP := range ips {
+  	}
+  }
+
+Given go (func param underscore):
+  package test
+  func f(bad_name int) {}
+
+Execute (GoLintFix):
+  call setqflist([{'lnum': 2, 'bufnr': 1, 'col': 8, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'don''t use underscores in Go names; func parameter bad_name should be badName'}])
+  2
+  GoLintFix
+
+Expect go (after fix):
+  package test
+  func f(badName int) {}
+
+Given go (func result underscore):
+  package test
+  func g() (no_way int) { return 0  }
+
+Execute (GoLintFix):
+  call setqflist([{'lnum': 2, 'bufnr': 1, 'col': 11, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'don''t use underscores in Go names; func result no_way should be noWay'}])
+  2
+  GoLintFix
+
+Expect go (after fix):
+  package test
+  func g() (noWay int) { return 0  }
+
+Given go (method parameter underscore):
+  package test
+  type tWow struct {}
+  func (t *tWow) f(more_under string)    {}
+
+Execute (GoLintFix):
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 18, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'don''t use underscores in Go names; method parameter more_under should be moreUnder'}])
+  3
+  GoLintFix
+
+Expect go (after fix):
+  package test
+  type tWow struct {}
+  func (t *tWow) f(moreUnder string)    {}
+
+Given go (method result underscore):
+  package test
+  type tWow struct {}
+  func (t *tWow) g() (still_more string) { return ""  }
+
+Execute (GoLintFix):
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 21, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'don''t use underscores in Go names; method result still_more should be stillMore'}])
+  3
+  GoLintFix
+
+Expect go (after fix):
+  package test
+  type tWow struct {}
+  func (t *tWow) g() (stillMore string) { return ""  }
+
+Given go (interface method parameter underscore):
+  package test
+  type i interface {
+  	F(foo_bar int)
+  }
+
+Execute (GoLintFix):
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 4, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'don''t use underscores in Go names; interface method parameter foo_bar should be fooBar'}])
+  3
+  GoLintFix
+
+Expect go (after fix):
+  package test
+  type i interface {
+  	F(fooBar int)
+  }

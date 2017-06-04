@@ -1,0 +1,63 @@
+Given go (+= 1):
+  package test
+  
+  func add(x int) {
+  	x += 1
+  }
+
+Execute (fix):
+  call setqflist([{'lnum': 4, 'bufnr': 1, 'col': 2, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'should replace x += 1 with x++'}])
+  4
+  GoLintFix
+
+Expect go (after fix):
+  package test
+  
+  func add(x int) {
+  	x++
+  }
+
+Given go (-=1):
+  package test
+  
+  func add(x int) {
+  	x -= 1
+  }
+
+Execute (fix):
+  call setqflist([{'lnum': 4, 'bufnr': 1, 'col': 2, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'should replace x -= 1 with x--'}])
+  4
+  GoLintFix
+
+Expect go (after fix):
+  package test
+  
+  func add(x int) {
+  	x--
+  }
+
+Given go (/*fa*/-=/*fas*/1):
+  package test
+  
+  func add(x int) {
+  	x/*faf*/ -= /*fafa*/1
+  }
+
+Execute (fix):
+  call setqflist([{'lnum': 4, 'bufnr': 1, 'col': 2, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'should replace x -= 1 with x--'}])
+  4
+  GoLintFix
+
+Expect go (after fix):
+  package test
+  
+  func add(x int) {
+  	x--
+  }
+

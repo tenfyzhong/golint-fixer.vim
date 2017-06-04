@@ -1,0 +1,67 @@
+Given go (error unexp):
+  package foo
+  import "errors"
+  var unexp = errors.New("some unexport error")
+
+Execute (fix):
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 5, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'error var unexp should have name of the form errFoo'}])
+  3
+  GoLintFix
+
+Expect go (after fix):
+  package foo
+  import "errors"
+  var errUnexp = errors.New("some unexport error")
+
+Given go (error Exp):
+  package foo
+  import "errors"
+  var Exp = errors.New("some exported error")
+
+Execute (fix):
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 5, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'error var Exp should have name of the form ErrFoo'}])
+  3
+  GoLintFix
+
+Expect go (after fix):
+  package foo
+  import "errors"
+  var ErrExp = errors.New("some exported error")
+
+Given go (fmt.Errorf unexp):
+  package foo
+  import "fmt"
+  var unexp = fmt.Errorf("some unexport error\n")
+
+Execute (fix):
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 5, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'error var unexp should have name of the form errFoo'}])
+  3
+  GoLintFix
+
+Expect go (after fix):
+  package foo
+  import "fmt"
+  var errUnexp = fmt.Errorf("some unexport error\n")
+
+Given go (fmt.Errorf Exp):
+  package foo
+  import "fmt"
+  var Exp = fmt.Errorf("some exported error\n")
+
+Execute (fix):
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 5, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'error var Exp should have name of the form ErrFoo'}])
+  3
+  GoLintFix
+
+Expect go (after fix):
+  package foo
+  import "fmt"
+  var ErrExp = fmt.Errorf("some exported error\n")

@@ -1,0 +1,67 @@
+Given go (_ bar):
+  package foo
+  type bar struct {}
+  func (_ bar) f() {
+  }
+
+Execute:
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 'nr': -1, 'type': 'W', 'pattern': '', 'text': 'receiver name should not be an underscore'}])
+  3
+  GoLintFix
+
+Expect go:
+  package foo
+  type bar struct {}
+  func (b bar) f() {
+  }
+
+Given go (_ /*fda*/ bar):
+  package foo
+  type bar struct {}
+  func (_ /*fda*/ bar) f() {
+  }
+
+Execute:
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 'nr': -1, 'type': 'W', 'pattern': '', 'text': 'receiver name should not be an underscore'}])
+  3
+  GoLintFix
+
+Expect go:
+  package foo
+  type bar struct {}
+  func (b /*fda*/ bar) f() {
+  }
+
+Given go (_ *bar):
+  package foo
+  type bar struct {}
+  func (_ *bar) f() {
+  }
+
+Execute:
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 'nr': -1, 'type': 'W', 'pattern': '', 'text': 'receiver name should not be an underscore'}])
+  3
+  GoLintFix
+
+Expect go:
+  package foo
+  type bar struct {}
+  func (b *bar) f() {
+  }
+
+Given go (_ /*fda*/ *bar):
+  package foo
+  type bar struct {}
+  func (_ /*fda*/ *bar) f() {
+  }
+
+Execute:
+  call setqflist([{'lnum': 3, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 'nr': -1, 'type': 'W', 'pattern': '', 'text': 'receiver name should not be an underscore'}])
+  3
+  GoLintFix
+
+Expect go:
+  package foo
+  type bar struct {}
+  func (b /*fda*/ *bar) f() {
+  }

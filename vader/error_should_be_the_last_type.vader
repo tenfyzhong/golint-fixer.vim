@@ -1,0 +1,80 @@
+Given go (error as first parameter):
+  package foo
+  func k()(error, int) {
+  	if true {
+  		return nil, 1
+  	}
+  	return nil, 0
+  }
+
+Execute (fix):
+  call setqflist([{'lnum': 2, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'error should be the last type when returning multiple items'}])
+  2
+  GoLintFix
+
+Expect go (after fix):
+  package foo
+  func k()(int, error) {
+  	if true {
+  		return 1, nil
+  	}
+  	return 0, nil
+  }
+
+Given go (error as middle parameter):
+  package foo
+  func k()(string, error, int) {
+  	if true {
+  		return "", nil, 1
+  	}
+  	return "", nil, 0
+  }
+
+Execute (fix):
+  call setqflist([{'lnum': 2, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'error should be the last type when returning multiple items'}])
+  2
+  GoLintFix
+
+Expect go (after fix):
+  package foo
+  func k()(string, int, error) {
+  	if true {
+  		return "", 1, nil
+  	}
+  	return "", 0, nil
+  }
+
+Given go (error as middle parameter, with named variable):
+  package foo
+  func k()(a string, err error, x int) {
+  	if true {
+  		a = ""
+  		err = nil
+  		x = 0
+  		return
+  	}
+  	return "", nil, 0
+  }
+
+Execute (fix):
+  call setqflist([{'lnum': 2, 'bufnr': 1, 'col': 1, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'error should be the last type when returning multiple items'}])
+  2
+  GoLintFix
+
+Expect go (after fix):
+  package foo
+  func k()(a string, x int, err error) {
+  	if true {
+  		a = ""
+  		err = nil
+  		x = 0
+  		return
+  	}
+  	return "", 0, nil
+  }

@@ -1,0 +1,14 @@
+Given go (dot import):
+  package test
+  import . "fmt"
+
+Execute (fix):
+  call setqflist([{'lnum': 2, 'bufnr': 1, 'col': 8, 'valid': 1, 'vcol': 0, 
+    \'nr': -1, 'type': 'W', 'pattern': '', 
+    \'text': 'should not use dot imports'}])
+  2
+  GoLintFix
+
+Expect go (after fix):
+  package test
+  import "fmt"
