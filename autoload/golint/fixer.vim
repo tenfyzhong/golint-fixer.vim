@@ -369,6 +369,22 @@ function! golint#fixer#name_stutters_consider_calling(pattern, item, matchlist) 
     endif
 endfunction "}}}
 
+" handle warning: var %s is of type %v; don't use unit-specific suffix %q
+function! golint#fixer#time_dont_use_unit_specific_suffix(pattern, item, matchlist) "{{{
+    let renamed = 0
+    let old_name = a:matchlist[1]
+    let suffix = a:matchlist[2]
+    let new_name = substitute(old_name, '\(.*\)'.suffix, '\1', '')
+    if <SID>use_go_rename()
+        call search(old_name)
+        exec 'GoRename ' . new_name
+    endif
+    let content = getline('.')
+    if match(content, old_name)
+        exec 's/\m\<'.old_name.'\>/'.new_name
+    endif
+endfunction "}}}
+
 function! s:scope_rename(old_name, new_name, begin_lnum, end_lnum) "{{{
     let lnum = a:begin_lnum
     while lnum < a:end_lnum
