@@ -350,6 +350,25 @@ function! golint#fixer#receive_name_should_not_be_an_underscore(pattern, item, m
     s/\m\(func\s*\%(\/\*.*\*\/\)\?\s*(\s*\%(\/\*.*\*\/\)\?\s*\)_\(\s*\%(\/\*.*\*\/\)\?\s*\*\?\s*\%(\/\*.*\*\/\)\?\s*\(\w\)\w*)\)/\1\3\2/
 endfunction "}}}
 
+" handle warning: type/func name will be used as xxx.yyy by other packages, and that stutters; consider calling this zzz
+function! golint#fixer#name_stutters_consider_calling(pattern, item, matchlist) "{{{
+    let old_name = a:matchlist[1]
+    let new_name = a:matchlist[2]
+    let renamed = 0
+    if <SID>use_go_rename()
+        call search(old_name)
+        try
+            call 'GoRename ' . new_name
+            let renamed = 1
+        catch
+            let renamed = 0
+        endtry
+    endif
+    if !renamed
+        exec 's/\<'.old_name.'\>/'.new_name
+    endif
+endfunction "}}}
+
 function! s:scope_rename(old_name, new_name, begin_lnum, end_lnum) "{{{
     let lnum = a:begin_lnum
     while lnum < a:end_lnum
