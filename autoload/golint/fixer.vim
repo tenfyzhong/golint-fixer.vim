@@ -120,7 +120,7 @@ function! golint#fixer#go_name_should_be(pattern, item, matchlist) "{{{
         call cursor(a:item['lnum'], a:item['col'])
         exec 'GoRename ' . new_name
     else
-        exec 's/\<'.old_name.'\>/'.new_name
+        exec 's/\<'.old_name.'\>/'.new_name.'/g'
     endif
 endfunction "}}}
 

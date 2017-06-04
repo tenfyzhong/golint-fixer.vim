@@ -15,7 +15,7 @@ let s:match_function = [
             \ {'pattern': '\m^a blank import should be only in a main or test package, or have a comment justifying it$', 'func': function('golint#fixer#blank_import_add_comment')},
             \ {'pattern': '\m^don''t use an underscore in package name$', 'func': function('golint#fixer#remove_underscore_in_package_name')},
             \ {'pattern': '\m^don''t use ALL_CAPS in Go names; use CamelCase$', 'func': function('golint#fixer#convert_all_caps_to_camelcase')},
-            \ {'pattern': '\m^don''t use \%(leading k\|underscores\) in Go names; \%(\w*\) \(\w\+\) should be \(\w\+\)$', 'func': function('golint#fixer#go_name_should_be')},
+            \ {'pattern': '\m^\%(don''t use \%(leading k\|underscores\) in Go names; \)\?.* \(\w\+\) should be \(\w\+\)$', 'func': function('golint#fixer#go_name_should_be')},
             \ {'pattern': '\m^comment on exported \w\+ \w\+ should be of the form "\(\w\+\) \.\.\." (with optional leading article)$', 'func': function('golint#fixer#comment_should_be_of_the_form')},
             \ {'pattern': '\m^comment on exported \w\+ \%(\w\+.\)\?\w\+ should be of the form "\(\w\+\) \.\.\."$', 'func': function('golint#fixer#comment_should_be_of_the_form')},
             \ {'pattern': '\m^exported \(\w\+\) \%(\w\+\) should have its own declaration$', 'func': function('golint#fixer#exported_should_have_its_own_declaration')},
