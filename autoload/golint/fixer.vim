@@ -312,6 +312,11 @@ function! golint#fixer#should_be_no_blank_lines(pattern, item, matchlist) "{{{
     endwhile
 endfunction  "}}}
 
+" handle warning: should omit 2nd value from range; this loop is equivalent to `for xxx = range ...`
+function! golint#fixer#omit_2nd_value_from_range(pattern, item, matchlist) "{{{
+    s/,\s*\%(\/\*.*\*\/\)\?\s*_\s*\%(\/\*.*\*\/\)\?\s*/ /
+endfunction "}}}"
+
 function! s:camelcase(word) "{{{ under_word to camelcase
     let new_word = substitute(a:word,'\C\(_\)\=\(.\)','\=submatch(1)==""?tolower(submatch(2)) : toupper(submatch(2))','g')
     let new_word = substitute(new_word, '\m_\+$', '', 'g')
