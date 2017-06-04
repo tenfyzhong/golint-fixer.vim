@@ -27,6 +27,7 @@ let s:match_function = [
             \ {'pattern': '\m^error var \(.*\) should have name of the form [eE]rrFoo$', 'func': function('golint#fixer#error_var_should_have_name_of_the_form')},
             \ {'pattern': '\m^error strings should not be capitalized or end with punctuation or a newline$', 'func': function('golint#fixer#error_strings_should_not_be_capitalized_or_end_with_punctuation_or_new_line')},
             \ {'pattern': '^should not use dot imports$', 'func': function('golint#fixer#should_not_use_dot_imports')}, 
+            \ {'pattern': '\m^should replace \(.*\)\s\+with\s\(.*\)$', 'func': function('golint#fixer#should_replace_xxx_with_yyy')}, 
             \]
 
 function! s:Fix() "{{{

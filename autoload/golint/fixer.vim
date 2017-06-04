@@ -288,6 +288,16 @@ function! golint#fixer#should_not_use_dot_imports(pattern, item, matchlist) "{{{
     s/\mimport\s\+\.\s\+/import /
 endfunction "}}}
 
+" handle warning: should replace %s with %s%s
+" should replace x += 1 with x++
+" Should replace y -= 1 with y--
+function! golint#fixer#should_replace_xxx_with_yyy(pattern, item, matchlist) "{{{
+    let xxx = a:matchlist[1]
+    let yyy = a:matchlist[2]
+    let xxx = substitute(xxx, ' ', '\\s*\\%(\\/\\*.*\\*\\/\\)\\?\\s*', 'g') " submatch space to space/inline_comment/space
+    exec 's/\m'.xxx.'/'.yyy
+endfunction "}}}
+
 function! s:camelcase(word) "{{{ under_word to camelcase
     let new_word = substitute(a:word,'\C\(_\)\=\(.\)','\=submatch(1)==""?tolower(submatch(2)) : toupper(submatch(2))','g')
     let new_word = substitute(new_word, '\m_\+$', '', 'g')
