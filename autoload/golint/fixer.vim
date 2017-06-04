@@ -400,7 +400,7 @@ endfunction "}}}
 
 " no match any pattern
 function! golint#fixer#default(pattern, item, matchlist) "{{{
-    echom 'I don''t now how to process it.'
+    echo 'I don''t now how to process it.'
 endfunction "}}}
 
 function! s:scope_rename(old_name, new_name, begin_lnum, end_lnum) "{{{
