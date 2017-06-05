@@ -348,13 +348,9 @@ endfunction "}}}
 " handle warning: receiver name %s should be consistent with previous receiver name %s for %s
 " pattern: '\m^receiver name \(.*\) should be consistent with previous receiver name \(.*\) for .*$'
 function! golint#fixer#receive_name_should_be_consistent_with_previous_receive_name(pattern, item, matchlist) "{{{
-    let lnum = a:item['lnum']
     let old_name = a:matchlist[1]
     let new_name = a:matchlist[2]
-    call search('{')
-    normal %
-    let function_last_lnum = line('.')
-    call <SID>scope_rename(old_name, new_name, lnum, function_last_lnum)
+    exec 's/\m\<'.old_name.'\>/'.new_name.'/g'
 endfunction "}}}
 
 " handle warning: receiver name should not be an underscore
@@ -394,11 +390,11 @@ function! s:scope_rename(old_name, new_name, begin_lnum, end_lnum) "{{{
     let lnum = a:begin_lnum
     while lnum < a:end_lnum
         call cursor(lnum, 1)
-        let f = search(a:old_name, '', a:end_lnum)
+        let f = search('\m\<'.a:old_name.'\>', '', a:end_lnum)
         if f == 0
             break
         endif
-        exec 's/\<'.a:old_name.'\>/'.a:new_name.'/g'
+        exec 's/\m\<'.a:old_name.'\>/'.a:new_name.'/g'
         let lnum = line('.') + 1
     endwhile
 endfunction "}}}
