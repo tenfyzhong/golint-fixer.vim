@@ -36,7 +36,6 @@ let s:match_function = [
             \ {'pattern': '^\w* name will be used as .*\.\(.*\) by other packages, and that stutters; consider calling this \(.*\)$', 'func': function('golint#fixer#name_stutters_consider_calling')}, 
             \ {'pattern': '\m^var \(.*\) is of type .*; don''t use unit-specific suffix "\(.*\)"$', 'func': function('golint#fixer#time_dont_use_unit_specific_suffix')}, 
             \ {'pattern': '\m^should omit type \(.\+\) from declaration of var .*; it will be inferred from the right-hand side$', 'func': function('golint#fixer#should_omit_type_from_declaration')}, 
-            \ {'pattern': '\m.*', 'func': function('golint#fixer#default')}, 
             \]
 
 function! s:process(list) "{{{
@@ -58,10 +57,18 @@ endfunction "}}}
 function! s:fix() "{{{
     let qflist = getqflist()
     let result = <SID>process(qflist)
-    if result == 0
-        let loclist = getloclist(0)
-        call <SID>process(loclist)
+    if result == 1
+        return
     endif
+
+    let loclist = getloclist(0)
+    let result = <SID>process(loclist)
+    if result == 1
+        return
+    endif
+
+    " Process failed. 
+    echo 'I don''t know how to process the warning.'
 endfunction "}}}
 
 if get(g:, 'golint_fixer_use_default_mapping', 1)
