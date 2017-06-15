@@ -1,4 +1,7 @@
 # golint-fixer.vim
+[![Build Status](https://travis-ci.org/tenfyzhong/golint-fixer.vim.svg?branch=master)](https://travis-ci.org/tenfyzhong/golint-fixer.vim)
+
+
 A vim tool for fix goling warnings, which generate by 
 [vim-go](https://github.com/fatih/vim-go) or [ale](https://github.com/w0rp/ale).  
 
