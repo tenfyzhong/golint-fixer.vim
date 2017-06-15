@@ -20,7 +20,7 @@ Expect go:
   func (b bar) f1() {
   }
   func (b bar) f2() {
-  	fmt.Printf("%v", b)
+  	fmt.Printf("%v", a)
   }
 
 Given go (a /*fa*/ bar):
@@ -45,7 +45,7 @@ Expect go:
   func (b bar) f1() {
   }
   func (b /*fa*/ bar) f2() {
-  	fmt.Printf("%v", b)
+  	fmt.Printf("%v", a)
   }
 
 Given go (a *bar):
@@ -70,7 +70,7 @@ Expect go:
   func (b bar) f1() {
   }
   func (b *bar) f2() {
-  	fmt.Printf("%v", b)
+  	fmt.Printf("%v", a)
   }
 
 Given go (a /*fa*/ *bar):
@@ -95,6 +95,6 @@ Expect go:
   func (b bar) f1() {
   }
   func (b /*fa*/ *bar) f2() {
-  	fmt.Printf("%v", b)
+  	fmt.Printf("%v", a)
   }
 
