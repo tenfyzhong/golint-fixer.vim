@@ -36,6 +36,7 @@ let s:match_function = [
             \ {'pattern': '^\w* name will be used as .*\.\(.*\) by other packages, and that stutters; consider calling this \(.*\)$', 'func': function('golint#fixer#name_stutters_consider_calling')}, 
             \ {'pattern': '\m^var \(.*\) is of type .*; don''t use unit-specific suffix "\(.*\)"$', 'func': function('golint#fixer#time_dont_use_unit_specific_suffix')}, 
             \ {'pattern': '\m^should omit type \(.\+\) from declaration of var .*; it will be inferred from the right-hand side$', 'func': function('golint#fixer#should_omit_type_from_declaration')}, 
+            \ {'pattern': '\m^missing '','' before newline in composite literal$', 'func': function('golint#fixer#miss_comma')}, 
             \]
 
 function! s:process(list) "{{{
@@ -72,7 +73,7 @@ function! s:fix() "{{{
 endfunction "}}}
 
 if get(g:, 'golint_fixer_use_default_mapping', 1)
-    nnoremap <leader>lf :GoLintFix<cr>
+    nnoremap <buffer><leader>rl :GoLintFix<cr>
 endif
 
 command! -nargs=0 GoLintFix call <SID>fix()

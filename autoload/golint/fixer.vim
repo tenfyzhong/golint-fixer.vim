@@ -381,6 +381,13 @@ function! golint#fixer#should_omit_type_from_declaration(pattern, item, matchlis
     exec 's/\m'.type.'\s*//'
 endfunction "}}}
 
+" handle error: missing '','' before newline in composite literal
+function! golint#fixer#miss_comma(pattern, item, matchlist) "{{{
+    call cursor(a:item['lnum'], a:item['col'])
+    normal a,
+    normal \<Esc>
+endfunction "}}}
+
 function! s:scope_rename(old_name, new_name, begin_lnum, end_lnum) "{{{
     let lnum = a:begin_lnum
     while lnum < a:end_lnum
